@@ -1,7 +1,10 @@
+from flask import request
 from flask import Blueprint
 from flask import render_template
+from flask import redirect, url_for
 from website.checkMatch import printMatch
 from website.data import takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions
+from website.login import User
 
 
 intents = Blueprint('intents',__name__)
@@ -33,3 +36,23 @@ def match():
     data1 = takeMatches_user()
     data2 = takeMatches_category()
     return render_template("matches.html", match_user_name=data1, match_category_name=data2, match_names_len=data1.__len__())
+
+@intents.route('/login', methods=['GET','POST'])
+def login():
+
+    if request.method == 'POST':
+        first_name = request.form.get('firstName')
+        last_name = request.form.get('lastName')
+
+        isUser = User(first_name, last_name)
+
+        if isUser:
+            print('LOGGED SUCCESSFULLY')
+            return redirect(url_for('intents.home'))
+        else:
+            print('TRY AGAIN')
+            
+    return render_template("login.html", boolean=True)
+    # data = request.form    #print(data)
+    
+
