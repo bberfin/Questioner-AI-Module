@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block title %}Usernames{% endblock %}
+
+{% block content %}
+<h1>Usernames</h1>
+
+{% for x in range(user_names_len) %}
+<h6>{{x+1}}- {{user_names[x]}} {{user_last_names[x]}}</h6>
+{% endfor %}
+{% endblock %}

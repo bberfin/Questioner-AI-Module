@@ -1,0 +1,11 @@
+{% extends "base.html" %} {% block title %}Matches{% endblock %}
+
+{% block content %}
+<h1>Matches</h1>
+<h7> user id-category id </h5>
+
+{% for x in range(match_names_len) %}
+<h6>{{x+1}}- ({{ match_user_name[x]}} - {{match_category_name[x]}})</h6>
+
+{% endfor %}
+{% endblock %}

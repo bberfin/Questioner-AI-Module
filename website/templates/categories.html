@@ -1,0 +1,12 @@
+{% extends "base.html" %} {% block title %}Categories{% endblock %}
+
+{% block content %}
+<h1>Categories</h1>
+
+
+{% for x in range(category_names_len) %}
+   <h6>{{x+1}}-{{category_names[x]}}</h6>
+
+{% endfor %}
+
+{% endblock %}

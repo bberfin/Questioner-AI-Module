@@ -1,0 +1,9 @@
+{% extends "base.html" %} {% block title %}Home{% endblock %}
+
+{% block content %}
+<h1>The Questioner</h1>
+
+{% for x in range(matched_ques_len) %}
+<h6>{{x+1}}- {{theMatch[x]}}</h6>
+{% endfor %}
+{% endblock %}

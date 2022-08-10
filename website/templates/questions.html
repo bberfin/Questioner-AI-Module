@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %}Questions{% endblock %}
+
+{% block content %}
+<h1>Questions</h1>
+
+{% for x in range(question_names_len) %}
+<h6>{{x+1}}- {{question_names[x]}}</h6>
+{% endfor %}
+
+{% endblock %}
