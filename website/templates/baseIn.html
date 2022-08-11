@@ -31,7 +31,11 @@
 
       <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-          <a class="nav-item nav-link" id="login" href="/">Login</a>
+          <a class="nav-item nav-link" id="home" href="/home">Home</a>
+          <a class="nav-item nav-link" id="usernames" href="/username">Usernames</a>
+          <a class="nav-item nav-link" id="categories" href="/category">Categories</a>
+          <a class="nav-item nav-link" id="questions" href="/question">Questions</a>
+          <a class="nav-item nav-link" id="questions" href="/match">Matches</a> 
         </div>
       </div>
     </nav>
@@ -54,6 +58,10 @@
         crossorigin="anonymous"
       ></script>
   
+      <script
+        type="text/javascript"
+        src="{{ url_for('static', filename='index.js') }}"
+      ></script>
 
   </body>
 </html>

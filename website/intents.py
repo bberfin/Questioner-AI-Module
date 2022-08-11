@@ -1,3 +1,4 @@
+import random
 from flask import request
 from flask import Blueprint
 from flask import render_template
@@ -9,11 +10,27 @@ from website.login import User
 
 intents = Blueprint('intents',__name__)
 
-@intents.route('/')
+global first_name
+global last_name
+first_name=""
+last_name=""
+
+def getFirstName():
+    global first_name
+    return first_name
+
+def getLastName():
+    global last_name
+    return last_name
+
+@intents.route('/home')
 def home():
     data= printMatch()
-    data2= data.__len__()
-    return render_template("home.html",theMatch=data,matched_ques_len=data2)
+    data2= data.__len__() 
+    index=random.randint(0,data2-1)   
+    dataRandom=data[index]
+
+    return render_template("home.html",theMatch=dataRandom,matched_ques_len=data2)
 
 @intents.route('/username')
 def username():
@@ -37,8 +54,11 @@ def match():
     data2 = takeMatches_category()
     return render_template("matches.html", match_user_name=data1, match_category_name=data2, match_names_len=data1.__len__())
 
-@intents.route('/login', methods=['GET','POST'])
+@intents.route('/', methods=['GET', 'POST'])
 def login():
+
+    global first_name
+    global last_name
 
     if request.method == 'POST':
         first_name = request.form.get('firstName')
@@ -52,7 +72,8 @@ def login():
         else:
             print('TRY AGAIN')
             
-    return render_template("login.html", boolean=True)
-    # data = request.form    #print(data)
+    return render_template("login.html")
+
+
     
 

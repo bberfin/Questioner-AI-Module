@@ -1,10 +1,8 @@
 
-from website import data
+import random
+from website import data, intents
 
 
-
-first_name = "Tuba"
-last_name = "Taşdemir"
 
 def findUserId(firstName,lastName):
 
@@ -60,11 +58,15 @@ def printQuestion(quesIdArr):
             if(quesIdArr[x] == quesId[y]):
                 newArr=[question[y]]
                 quesArr=quesArr+newArr
+    
+    # index = random.randint(0,quesArr.__len__()-1)
             
 
     return quesArr
 
 def printMatch():
+    first_name = intents.getFirstName()
+    last_name = intents.getLastName()
     data1 = findUserId(first_name,last_name)
     data2 = findMatchedCategoryId(data1)
     data3 =findQuestion(data2)

@@ -1,9 +1,38 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %}
+{% extends "baseIn.html" %} {% block title %}Home{% endblock %}
 
 {% block content %}
 <h1>The Questioner</h1>
 
-{% for x in range(matched_ques_len) %}
-<h6>{{x+1}}- {{theMatch[x]}}</h6>
-{% endfor %}
+<button id="askButton" onclick="showQuestion()">ASK ME</button>
+<p id="question"> </p>
+
+
+<script>
+function showQuestion() {
+
+    
+    var codeBlock = '<h6 id="randomQues">{{theMatch}}</h6>' +
+                    '<form method="POST">'+
+                    '<div class="form-group">'+
+                    '<input type="text" class="form-control" id="answer" name="answer" placeholder="Enter answer" />'+
+                    '</div>'+                   
+                    '<button>ANSWER</button>'+
+                    '</form>'+ 
+                    '<br>'+
+                    '<button onclick="showQuestion()">PASS</button>';
+
+
+    removeAskButton();
+    document.getElementById("question").innerHTML = codeBlock;
+
+}
+function removeAskButton() {
+        var element = document.getElementById('askButton');
+        element.remove();
+        
+    }
+</script> 
+
 {% endblock %}
+
+
