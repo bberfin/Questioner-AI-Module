@@ -25,12 +25,16 @@ def getLastName():
 
 @intents.route('/home')
 def home():
+    return render_template("home.html")
+
+@intents.route('/askQuestion')
+def askQuestion():
     data= printMatch()
     data2= data.__len__() 
     index=random.randint(0,data2-1)   
     dataRandom=data[index]
 
-    return render_template("home.html",theMatch=dataRandom,matched_ques_len=data2)
+    return render_template("askQuestion.html",theMatch=dataRandom)
 
 @intents.route('/username')
 def username():
@@ -73,6 +77,7 @@ def login():
             print('TRY AGAIN')
             
     return render_template("login.html")
+
 
 
     

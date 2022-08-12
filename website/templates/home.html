@@ -3,35 +3,10 @@
 {% block content %}
 <h1>The Questioner</h1>
 
-<button id="askButton" onclick="showQuestion()">ASK ME</button>
-<p id="question"> </p>
 
-
-<script>
-function showQuestion() {
-
-    
-    var codeBlock = '<h6 id="randomQues">{{theMatch}}</h6>' +
-                    '<form method="POST">'+
-                    '<div class="form-group">'+
-                    '<input type="text" class="form-control" id="answer" name="answer" placeholder="Enter answer" />'+
-                    '</div>'+                   
-                    '<button>ANSWER</button>'+
-                    '</form>'+ 
-                    '<br>'+
-                    '<button onclick="showQuestion()">PASS</button>';
-
-
-    removeAskButton();
-    document.getElementById("question").innerHTML = codeBlock;
-
-}
-function removeAskButton() {
-        var element = document.getElementById('askButton');
-        element.remove();
-        
-    }
-</script> 
+<form action="/askQuestion">
+    <input type="submit" value="ASK ME">
+    </form>
 
 {% endblock %}
 

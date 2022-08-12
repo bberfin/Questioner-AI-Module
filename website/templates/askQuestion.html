@@ -1,0 +1,28 @@
+{% extends "baseIn.html" %} {% block title %}Home{% endblock %}
+
+{% block content %}
+
+<br>
+<br>
+<h6 id="randomQues">{{theMatch}}</h6>
+                    <form method="POST">
+                    <div class="form-group">
+                    <input type="text" class="form-control" id="answer" name="answer" placeholder="Enter answer" />
+                    </div>                  
+                    <button>ANSWER</button>
+                    </form>
+                    <br>
+                    <button onclick="showNewQuestion()">PASS</button>
+
+
+<script>
+
+function showNewQuestion() {
+    window.location.reload();
+}
+
+</script> 
+
+{% endblock %}
+
+
