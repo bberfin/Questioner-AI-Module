@@ -40,6 +40,11 @@ def takeQuestionsId():
 
     return question_names
 
+def takeQuestionsAnswer():
+    question_answer = question_data.get("question_answer")
+
+    return question_answer
+
 def takeCategoryQuesId():
     ctgry_id = question_data.get("category_id")
 

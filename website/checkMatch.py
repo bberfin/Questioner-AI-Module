@@ -2,7 +2,10 @@
 import random
 from website import data, intents
 
-
+global theQuestion
+global theAnswer
+theQuestion= ""
+theAnswer= ""
 
 def findUserId(firstName,lastName):
 
@@ -48,7 +51,10 @@ def findQuestion(category_id):
 def printQuestion(quesIdArr):
 
     quesArr=[]
+    global theQuestion
+    global theAnswer
     question = data.takeQuestions()
+    answer=data.takeQuestionsAnswer()
     quesId=data.takeQuestionsId()
     quesIdLen = quesIdArr.__len__()
     quesLen=question.__len__()
@@ -59,10 +65,14 @@ def printQuestion(quesIdArr):
                 newArr=[question[y]]
                 quesArr=quesArr+newArr
     
-    # index = random.randint(0,quesArr.__len__()-1)
-            
+    index = random.randint(0,quesArr.__len__()-1)
+    theQuestion= quesArr[index]
 
-    return quesArr
+    for x in range(quesIdLen):
+        for y in range(quesLen):
+            if(theQuestion== question[x]):  
+                theAnswer=answer[x]
+    return theQuestion
 
 def printMatch():
     first_name = intents.getFirstName()

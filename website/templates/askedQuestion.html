@@ -1,0 +1,38 @@
+{% extends "baseIn.html" %} {% block title %}Home{% endblock %}
+
+{% block content %}
+
+<br>
+<br>
+<h6 id="randomQues">{{theMatch}}</h6>
+                    <form method="POST">
+                    <div class="form-group">
+                    <input type="text" class="form-control" id="answer" name="answer" placeholder="Enter answer" />
+                    </div>                  
+                    <button>ANSWER</button>
+                    </form>
+                    <br>
+
+                    <!-- <form action="/action_page.php">
+                    <input type="radio" id="option1" name="answer" value="option1">
+                    <label for="option1">option 1</label><br>
+                    <input type="radio" id="option2" name="answer" value="option2">
+                    <label for="option2">option2</label><br>
+                    <input type="radio" id="option3" name="answer" value="option3">
+                    <label for="option3">option3</label>
+                    </form> 
+                    <br> -->
+
+                    <button onclick="showNewQuestion()">PASS</button>
+
+<script>
+
+function showNewQuestion() {
+    window.location.reload();
+}
+
+</script> 
+
+{% endblock %}
+
+

@@ -1,9 +1,12 @@
+from glob import glob
 import random
+from tkinter import scrolledtext
 from flask import request
 from flask import Blueprint
 from flask import render_template
 from flask import redirect, url_for
-from website.checkMatch import printMatch
+from website import checkMatch
+from website.checkMatch import findMatchedCategoryId, findUserId, printMatch
 from website.data import takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions
 from website.login import User
 
@@ -12,6 +15,8 @@ intents = Blueprint('intents',__name__)
 
 global first_name
 global last_name
+global score
+score=0
 first_name=""
 last_name=""
 
@@ -25,16 +30,18 @@ def getLastName():
 
 @intents.route('/home')
 def home():
-    return render_template("home.html")
+    global score
+    name=getFirstName()
+    surname=getLastName()
+    return render_template("home.html",name=name,surname=surname,score=score)
 
-@intents.route('/askQuestion')
+@intents.route('/askedQuestion')
 def askQuestion():
     data= printMatch()
-    data2= data.__len__() 
-    index=random.randint(0,data2-1)   
-    dataRandom=data[index]
-
-    return render_template("askQuestion.html",theMatch=dataRandom)
+    # data2= data.__len__() 
+    # index=random.randint(0,data2-1)   
+    # dataRandom=data[index]
+    return render_template("askedQuestion.html",theMatch=data)
 
 @intents.route('/username')
 def username():
@@ -78,6 +85,23 @@ def login():
             
     return render_template("login.html")
 
+@intents.route('/askedQuestion', methods=['GET', 'POST'])
+def updateScore():
+
+    data= printMatch()
+    if request.method == 'POST':
+        userAnswer = request.form.get('answer')
+        correctAnswer = checkMatch.theAnswer
+
+        if (userAnswer == correctAnswer):
+            global score
+            print('TRUE')
+            score+=1
+            # return redirect(url_for('intents.home'))
+        else:
+            print('FALSE')
+            
+    return render_template("askedQuestion.html",theMatch=data)
 
 
     

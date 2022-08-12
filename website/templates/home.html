@@ -3,9 +3,13 @@
 {% block content %}
 <h1>The Questioner</h1>
 
+<h5>Name: {{name}}</h5>
+<h5>Surname: {{surname}}</h5>
+<h5>Score: {{score}}</h5>
 
-<form action="/askQuestion">
-    <input type="submit" value="ASK ME">
+<br>
+<form action="/askedQuestion">
+    <input type="submit" value="ASK ME QUESTIONS ">
     </form>
 
 {% endblock %}
