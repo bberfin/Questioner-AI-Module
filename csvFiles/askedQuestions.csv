@@ -1,8 +1,7 @@
-user_id,question_id,isTrue
+user_id,question_id
 
-4,1,1
-
-4,1,1
-
-4,1,1
-
+1,1
+1,12
+1,6
+3,7
+3,8

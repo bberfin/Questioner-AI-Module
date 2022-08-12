@@ -1,6 +1,7 @@
 
 import random
 from website import data, intents
+from .writeToCsv import writeToCsv
 
 global theQuestion
 global theAnswer
@@ -53,6 +54,7 @@ def printQuestion(quesIdArr):
     quesArr=[]
     global theQuestion
     global theAnswer
+    global theQuestionId
     question = data.takeQuestions()
     answer=data.takeQuestionsAnswer()
     quesId=data.takeQuestionsId()
@@ -69,9 +71,9 @@ def printQuestion(quesIdArr):
     theQuestion= quesArr[index]
 
     for x in range(quesIdLen):
-        for y in range(quesLen):
             if(theQuestion== question[x]):  
                 theAnswer=answer[x]
+
     return theQuestion
 
 def printMatch():
@@ -81,6 +83,17 @@ def printMatch():
     data2 = findMatchedCategoryId(data1)
     data3 =findQuestion(data2)
     data4 = printQuestion(data3)
+
+   
+
+    question = data.takeQuestions()
+    quesId=data.takeQuestionsId()
+    quesLen = question.__len__()
+    for x in range(quesLen):
+        if(data4== question[x]):  
+            theQuestionId= quesId[x]
+
+    writeToCsv(data1,theQuestionId)      
 
     return data4
 

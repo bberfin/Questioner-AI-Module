@@ -1,4 +1,3 @@
-from glob import glob
 import random
 from tkinter import scrolledtext
 from flask import request
