@@ -7,8 +7,7 @@ match_data = pd.read_csv("csvFiles\\user_category_match.csv")
 
 
 def takeFirstNames():
-    user_names = user_data.get("user_first_name")
-    
+    user_names = user_data.get("user_first_name")   
     return user_names
 
 def takeLastNames():
@@ -27,37 +26,37 @@ def takeCategories():
 
 def takeCategoryId():
     category_id = category_data.get("category_id")
-
     return category_id
 
 def takeQuestions():
     question_names = question_data.get("question")
-
     return question_names
 
 def takeQuestionsId():
     question_names = question_data.get("question_id")
-
     return question_names
 
 def takeQuestionsAnswer():
     question_answer = question_data.get("question_answer")
-
     return question_answer
+
+def takeFalseAnswers(x):
+    data1=(question_data.get("option2"))[x]
+    data2=(question_data.get("option3"))[x]
+    data3=(question_data.get("option4"))[x]
+    falseAnswers = [data1,data2,data3]
+    return falseAnswers
 
 def takeCategoryQuesId():
     ctgry_id = question_data.get("category_id")
-
     return ctgry_id
 
 def takeMatches_user():
     match_user = match_data.get("user_id")
-
     return match_user
 
 def takeMatches_category():
     match_category = match_data.get("category_id")
-
     return match_category
 
 

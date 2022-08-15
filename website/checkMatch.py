@@ -3,10 +3,10 @@ import random
 from website import data, intents
 from .writeToCsv import writeToCsv
 
-global theQuestion
-global theAnswer
-theQuestion= ""
-theAnswer= ""
+# global theQuestion
+# global theAnswer
+# theQuestion= ""
+# theAnswer= ""
 
 def findUserId(firstName,lastName):
 
@@ -54,7 +54,7 @@ def printQuestion(quesIdArr):
     quesArr=[]
     global theQuestion
     global theAnswer
-    global theQuestionId
+    quesAndAns=[]
     question = data.takeQuestions()
     answer=data.takeQuestionsAnswer()
     quesId=data.takeQuestionsId()
@@ -70,13 +70,35 @@ def printQuestion(quesIdArr):
     index = random.randint(0,quesArr.__len__()-1)
     theQuestion= quesArr[index]
 
-    for x in range(quesIdLen):
-            if(theQuestion== question[x]):  
-                theAnswer=answer[x]
 
-    return theQuestion
+    op1=random.randint(0,3)
+    op2=random.randint(0,3)
+    while(op2==op1):
+        op2=random.randint(0,3)
+
+    op3=random.randint(0,3)
+    while(op3==op1 | op3==op2):
+        op3=random.randint(0,3)
+
+    op4=random.randint(0,3)
+    while(op4==op1 | op4==op2 | op4==op3):
+        op4=random.randint(0,3)
+
+    for x in range(quesLen):
+            if(theQuestion==question[x]):  
+                theAnswer=answer[x]
+                falseAnswers=data.takeFalseAnswers(x)
+                quesAndAns=[theQuestion,theAnswer]
+                quesAndAns=quesAndAns+falseAnswers
+                break
+
+    return quesAndAns
 
 def printMatch():
+
+
+    theQuestionId=0
+
     first_name = intents.getFirstName()
     last_name = intents.getLastName()
     data1 = findUserId(first_name,last_name)
@@ -89,12 +111,30 @@ def printMatch():
     question = data.takeQuestions()
     quesId=data.takeQuestionsId()
     quesLen = question.__len__()
+
     for x in range(quesLen):
-        if(data4== question[x]):  
+        if(data4[0]== question[x]):  
             theQuestionId= quesId[x]
 
-    writeToCsv(data1,theQuestionId)      
+    writeToCsv(data1,theQuestionId)  
+
+    # print("-----HTML-------")
+    # print("ques: "+data4[0])
+    # print("ans: "+data4[1])
+    # print("--------------")
+
+ 
 
     return data4
+
+# def findCorrectAnswer(theQuestion,quesIdArr):
+#     correctAnswer=""
+#     question = data.takeQuestions()
+#     answer=data.takeQuestionsAnswer()
+#     quesIdLen = quesIdArr.__len__()  
+#     for x in range(quesIdLen):
+#             if(theQuestion==question[x]):  
+#                 correctAnswer=answer[x]
+#     return correctAnswer
 
 
