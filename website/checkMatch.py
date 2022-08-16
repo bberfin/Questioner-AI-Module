@@ -3,10 +3,6 @@ import random
 from website import data, intents
 from .writeToCsv import writeToCsv
 
-# global theQuestion
-# global theAnswer
-# theQuestion= ""
-# theAnswer= ""
 
 def findUserId(firstName,lastName):
 
@@ -63,11 +59,14 @@ def printQuestion(quesIdArr):
 
     for x in range(quesIdLen):
         for y in range(quesLen):
-            if(quesIdArr[x] == quesId[y]):
+            if((quesIdArr[x] == quesId[y]) and (data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),quesId[y])==False)):
                 newArr=[question[y]]
                 quesArr=quesArr+newArr
     
     index = random.randint(0,quesArr.__len__()-1)
+    while(data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),data.findQuesId(quesArr[index]))==True):
+        index = random.randint(0,quesArr.__len__()-1)
+    
     theQuestion= quesArr[index]
 
 
@@ -118,23 +117,4 @@ def printMatch():
 
     writeToCsv(data1,theQuestionId)  
 
-    # print("-----HTML-------")
-    # print("ques: "+data4[0])
-    # print("ans: "+data4[1])
-    # print("--------------")
-
- 
-
     return data4
-
-# def findCorrectAnswer(theQuestion,quesIdArr):
-#     correctAnswer=""
-#     question = data.takeQuestions()
-#     answer=data.takeQuestionsAnswer()
-#     quesIdLen = quesIdArr.__len__()  
-#     for x in range(quesIdLen):
-#             if(theQuestion==question[x]):  
-#                 correctAnswer=answer[x]
-#     return correctAnswer
-
-
