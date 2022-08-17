@@ -1,9 +1,6 @@
-
 import random
 from website import data, intents
-from .writeToCsv import writeToCsv
-from flask import render_template
-
+from website.writeToCsv import writeToCsv
 
 def findUserId(firstName,lastName):
 
@@ -62,28 +59,19 @@ def printQuestion(quesIdArr):
 
     for x in range(quesIdLen):
         for y in range(quesLen):
-            if((quesIdArr[x] == quesId[y]) and (data.isAsked(id_user,quesId[y])==False)):
+            if((quesIdArr[x] == quesId[y]) and (data.isAsked(id_user,quesId[y])==False)):  #sorulmamış soru bul
                 newArr=[question[y]]
                 quesArr=quesArr+newArr
     
-    number=data.findAskedQuesNum(id_user)
-    if( number < quesIdLen):
+    number=data.findAskedQuesNum(id_user)  
+    if( number < quesIdLen):                #tüm sorular sorulmuş mu kontrol et
         index = random.randint(0,quesArr.__len__()-1)
-
-    # index = random.randint(0,quesArr.__len__()-1)
-
-# and (data.findAskedQuesNum(id_user)<quesIdLen)
         while((data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),data.findQuesId(quesArr[index]))==True)):
             index = random.randint(0,quesArr.__len__()-1)
         
         theQuestion= quesArr[index]
-    
-    # if(data.findAskedQuesNum(id_user)<quesIdLen):
-    #     theQuestion= quesArr[index]
-    # else :
-    #     return render_template("login.html")
+
     else:
-        # print("soruların bitti...")
         return False
 
 
@@ -112,27 +100,32 @@ def printQuestion(quesIdArr):
 
 def printMatch():
 
-
-    theQuestionId=0
-
     first_name = intents.getFirstName()
     last_name = intents.getLastName()
     data1 = findUserId(first_name,last_name)
     data2 = findMatchedCategoryId(data1)
     data3 =findQuestion(data2)
     data4 = printQuestion(data3)
+ 
 
-   
+    return data4
+
+def csv(dataArr,is_correct):
+
+    theQuestionId=0
 
     question = data.takeQuestions()
     quesId=data.takeQuestionsId()
     quesLen = question.__len__()
 
-    if(data4 != False):
+    first_name = intents.getFirstName()
+    last_name = intents.getLastName()
+    data1 = findUserId(first_name,last_name)
+    data2 = findMatchedCategoryId(data1)
+
+    if(dataArr!= False):
         for x in range(quesLen):
-            if(data4[0]== question[x]):  
+            if(dataArr[0]== question[x]):  
                 theQuestionId= quesId[x]
 
-        writeToCsv(data1,theQuestionId)  
-
-    return data4
+        writeToCsv(data1,theQuestionId,data2,is_correct) 

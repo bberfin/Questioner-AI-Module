@@ -71,9 +71,37 @@ def takeMatches_user():
 
 def takeMatches_category():
     match_data = pd.read_csv("csvFiles\\user_category_match.csv")
-
     match_category = match_data.get("category_id")
     return match_category
+
+def getScore(user_id,category_id):
+    counter=0
+    asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
+    askedId=asked_data.get("user_id")
+    categoryId=asked_data.get("category_id")
+    isCorrect=asked_data.get("is_correct")
+    quesLen = askedId.__len__()
+
+    for x in range(quesLen):
+        if((str(user_id)==str(askedId[x])) and (str(category_id)==str(categoryId[x]))):
+            print("biiiirr")
+            if(str(isCorrect[x])=="1"):
+                print("ikiii")
+                counter+=1               
+    return counter
+
+
+# def findUserId(firstname,lastname):
+#     user_data = pd.read_csv("csvFiles\\users.csv")
+#     user_Fnames = user_data.get("user_first_name")
+#     user_Lnames = user_data.get("user_last_name")    
+#     userLen=user_Fnames.__len__()
+
+#     userIds=takeUserId()
+#     for x in range(userLen):
+#         if((str(firstname)==str(user_Fnames[x])) and (str(lastname)==str(user_Lnames[x]))):
+#             return userIds[x]
+
 
 def isAsked(user_id,question_id):
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
@@ -115,10 +143,7 @@ def checkAsked(user_id):
     askedIdLen = askedId.__len__()
     flag=False 
     for x in range(askedIdLen):
-        print("user:")
-        print(askedId[x])
         if(user_id==askedId[x]):
-            print("HERE...")
             flag=True
             break
         

@@ -1,13 +1,11 @@
-import imp
 import random
-from flask import flash
+# from flask import flash
 from flask import request
 from flask import Blueprint
 from flask import render_template
 from flask import redirect, url_for
-from website import checkMatch
-from website.checkMatch import findMatchedCategoryId, findUserId, printMatch
-from website.data import takeCategories, takeFalseAnswers, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeQuestionsAnswer
+from website.checkMatch import csv, findMatchedCategoryId, findUserId, printMatch
+from website.data import getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeQuestionsAnswer
 from website.login import User
 
 
@@ -15,13 +13,13 @@ intents = Blueprint('intents',__name__)
 
 global first_name
 global last_name
-global score
-score=0
 first_name=""
 last_name=""
 global ques
 global ans
 global answers
+global dataArr
+dataArr=[]
 ques=""
 ans=""
 answers=[]
@@ -57,11 +55,19 @@ def getLastName():
     global last_name
     return last_name
 
+# def checkAnswer():
+#     global isAnsweredCorrectly
+#     return isAnsweredCorrectly   
+
 @intents.route('/home')
 def home():
-    global score
     name=getFirstName()
-    surname=getLastName()
+    surname=getLastName()    
+    userId=findUserId(name,surname)
+    categoryId=findMatchedCategoryId(userId)
+    score=getScore(userId,categoryId)
+
+    print(str(name)+ ": " +str(categoryId) + " : " + str(score))
     return render_template("home.html",name=name,surname=surname,score=score)
 
 @intents.route('/askedQuestion')
@@ -69,24 +75,17 @@ def askQuestion():
     global ques
     global correct_ans
     global answers
-    # global falseAns
-    data=printMatch()
-    if(data != False):
-        ques= data[0]
-        # falseAns=[data[2],data[3],data[4]]
-        correct_ans=data[1]
-        answers=[data[1],data[2],data[3],data[4]]
+    global dataArr
+    dataArr=printMatch()
+    if(dataArr != False):
+        ques= dataArr[0]
+        correct_ans=dataArr[1]
+        answers=[dataArr[1],dataArr[2],dataArr[3],dataArr[4]]
         answers=randomAns(answers)
         return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False")  
 
     else:
         return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True")
-    # data3=checkMatch.theAnswer
-    # data3=(takeQuestionsAnswer())[3]
-    # data2= data.__len__() 
-    # index=random.randint(0,data2-1)   
-    # dataRandom=data[index]
-    # return render_template("askedQuestion.html",theMatch=ques,falseAnswers=falseAns,correctAns=ans)
 
 
 @intents.route('/askedQuestion', methods=['GET', 'POST'])
@@ -95,37 +94,28 @@ def updateScore():
     global ques
     global correct_ans
     global answers
-    # global falseAns
-
+    global dataArr
+    global isAnsweredCorrectly
     if request.method == 'POST':
         userAnswer = request.form.get('option')
         correctAnswer=correct_ans
             
-        # print("-----PYTHON-------")
-        # print("ques: "+ques)
-        # print("user: "+userAnswer)
-        # print("correct: "+correctAnswer)
         if (userAnswer == correctAnswer):
-            global score
+            csv(dataArr,"1")
             print('TRUE')
-            # flash("TRUE")
-            score+=1
         else:
+            csv(dataArr,"0")
             print('FALSE')
-            # flash("FALSE")
 
-    data=printMatch()
-    if(data != False):
-        ques= data[0]
-        # falseAns=[data[2],data[3],data[4]]
-        correct_ans=data[1]
-        answers=[data[1],data[2],data[3],data[4]]
+    dataArr=printMatch()
+    if(dataArr != False):
+        ques= dataArr[0]
+        correct_ans=dataArr[1]
+        answers=[dataArr[1],dataArr[2],dataArr[3],dataArr[4]]
         answers=randomAns(answers)
-    # return render_template("askedQuestion.html",theMatch=ques,falseAnswers=falseAns,correctAns=ans)
         return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False")
     
     else:
-        # return render_template("statistics.html")
         return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True")
 
 @intents.route('/username')
@@ -169,48 +159,6 @@ def login():
             print('TRY AGAIN')
             
     return render_template("login.html")
-
-# @intents.route('/askedQuestion', methods=['GET', 'POST'])
-# def updateScore():
-
-#     data= printMatch()
-#     if request.method == 'POST':
-#         userAnswer = request.form.get('answer')
-#         correctAnswer = checkMatch.theAnswer
-
-#         if (userAnswer == correctAnswer):
-#             global score
-#             print('TRUE')
-#             score+=1
-#             # return redirect(url_for('intents.home'))
-#         else:
-#             print('FALSE')
-            
-#     return render_template("askedQuestion.html",theMatch=data)
-
-# @intents.route('/askedQuestion', methods=['GET', 'POST'])
-# def updateScore():
-
-#     data=printMatch()
-#     data1= data[0]
-#     data2=takeFalseAnswers(3)
-
-
-#     if request.method == 'POST':
-#         userAnswer = request.form.get('option')
-#         correctAnswer=data[1]
-
-#         print("ques: "+data1)
-#         print("user: "+userAnswer)
-#         print("correct: "+correctAnswer)
-#         if (userAnswer == correctAnswer):
-#             global score
-#             print('TRUE')
-#             score+=1
-#             # return redirect(url_for('intents.home'))
-#         else:
-#             print('FALSE')
-#     return render_template("askedQuestion.html",theMatch=data1,falseAnswers=data2,correctAns=correctAnswer)
 
 
 @intents.route('/statistics')

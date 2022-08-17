@@ -1,13 +1,4 @@
-user_id,question_id
-1,1
-1,6
-1,12
-7,5
-7,9
-7,10
-2,5
-2,9
-2,10
-5,1
-5,6
-5,12
+user_id,question_id,category_id,is_correct
+1,12,1,1
+1,1,1,0
+1,6,1,0
