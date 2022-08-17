@@ -6,7 +6,8 @@ import pandas as pd
 # match_data = pd.read_csv("csvFiles\\user_category_match.csv")
 # asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
 
-
+global askedNum
+askedNum=0
 
 def takeFirstNames():
     user_data = pd.read_csv("csvFiles\\users.csv")
@@ -95,6 +96,18 @@ def findQuesId(question):
     for x in range(quesLen):
         if(str(question)==str(ques[x])):
             return quesIds[x]
+
+def findAskedQuesNum(user_id):
+    global askedNum
+    asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
+    askedId=asked_data.get("user_id")
+    askedIdLen = askedId.__len__()
+    for x in range(askedIdLen):
+        if(user_id==askedId[x]):
+            askedNum=askedNum+1
+    num = askedNum
+    askedNum=0
+    return num
 
 def checkAsked(user_id):
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")

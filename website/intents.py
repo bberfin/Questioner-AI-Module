@@ -69,18 +69,23 @@ def askQuestion():
     global answers
     # global falseAns
     data=printMatch()
-    ques= data[0]
-    # falseAns=[data[2],data[3],data[4]]
-    correct_ans=data[1]
-    answers=[data[1],data[2],data[3],data[4]]
-    answers=randomAns(answers)
+    if(data != False):
+        ques= data[0]
+        # falseAns=[data[2],data[3],data[4]]
+        correct_ans=data[1]
+        answers=[data[1],data[2],data[3],data[4]]
+        answers=randomAns(answers)
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False")  
+
+    else:
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True")
     # data3=checkMatch.theAnswer
     # data3=(takeQuestionsAnswer())[3]
     # data2= data.__len__() 
     # index=random.randint(0,data2-1)   
     # dataRandom=data[index]
     # return render_template("askedQuestion.html",theMatch=ques,falseAnswers=falseAns,correctAns=ans)
-    return render_template("askedQuestion.html",theMatch=ques,ans=answers)
+
 
 @intents.route('/askedQuestion', methods=['GET', 'POST'])
 def updateScore():
@@ -108,13 +113,18 @@ def updateScore():
             # flash("FALSE")
 
     data=printMatch()
-    ques= data[0]
-    # falseAns=[data[2],data[3],data[4]]
-    correct_ans=data[1]
-    answers=[data[1],data[2],data[3],data[4]]
-    answers=randomAns(answers)
+    if(data != False):
+        ques= data[0]
+        # falseAns=[data[2],data[3],data[4]]
+        correct_ans=data[1]
+        answers=[data[1],data[2],data[3],data[4]]
+        answers=randomAns(answers)
     # return render_template("askedQuestion.html",theMatch=ques,falseAnswers=falseAns,correctAns=ans)
-    return render_template("askedQuestion.html",theMatch=ques,ans=answers)
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False")
+    
+    else:
+        # return render_template("statistics.html")
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True")
 
 @intents.route('/username')
 def username():
@@ -201,5 +211,7 @@ def login():
 #     return render_template("askedQuestion.html",theMatch=data1,falseAnswers=data2,correctAns=correctAnswer)
 
 
-    
+@intents.route('/statistics')
+def statistics():
+    return render_template("statistics.html")  
 

@@ -2,6 +2,7 @@
 import random
 from website import data, intents
 from .writeToCsv import writeToCsv
+from flask import render_template
 
 
 def findUserId(firstName,lastName):
@@ -48,6 +49,7 @@ def findQuestion(category_id):
 def printQuestion(quesIdArr):
 
     quesArr=[]
+    index=0
     global theQuestion
     global theAnswer
     quesAndAns=[]
@@ -56,18 +58,33 @@ def printQuestion(quesIdArr):
     quesId=data.takeQuestionsId()
     quesIdLen = quesIdArr.__len__()
     quesLen=question.__len__()
+    id_user=findUserId(intents.getFirstName(),intents.getLastName())
 
     for x in range(quesIdLen):
         for y in range(quesLen):
-            if((quesIdArr[x] == quesId[y]) and (data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),quesId[y])==False)):
+            if((quesIdArr[x] == quesId[y]) and (data.isAsked(id_user,quesId[y])==False)):
                 newArr=[question[y]]
                 quesArr=quesArr+newArr
     
-    index = random.randint(0,quesArr.__len__()-1)
-    while(data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),data.findQuesId(quesArr[index]))==True):
+    number=data.findAskedQuesNum(id_user)
+    if( number < quesIdLen):
         index = random.randint(0,quesArr.__len__()-1)
+
+    # index = random.randint(0,quesArr.__len__()-1)
+
+# and (data.findAskedQuesNum(id_user)<quesIdLen)
+        while((data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),data.findQuesId(quesArr[index]))==True)):
+            index = random.randint(0,quesArr.__len__()-1)
+        
+        theQuestion= quesArr[index]
     
-    theQuestion= quesArr[index]
+    # if(data.findAskedQuesNum(id_user)<quesIdLen):
+    #     theQuestion= quesArr[index]
+    # else :
+    #     return render_template("login.html")
+    else:
+        # print("soruların bitti...")
+        return False
 
 
     op1=random.randint(0,3)
@@ -111,10 +128,11 @@ def printMatch():
     quesId=data.takeQuestionsId()
     quesLen = question.__len__()
 
-    for x in range(quesLen):
-        if(data4[0]== question[x]):  
-            theQuestionId= quesId[x]
+    if(data4 != False):
+        for x in range(quesLen):
+            if(data4[0]== question[x]):  
+                theQuestionId= quesId[x]
 
-    writeToCsv(data1,theQuestionId)  
+        writeToCsv(data1,theQuestionId)  
 
     return data4

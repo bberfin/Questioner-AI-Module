@@ -11,61 +11,13 @@
     }
  </style>
 
-<!-- <h6 id="randomQues">{{theMatch}}</h6> -->
-                    <!-- <form method="POST">
-                    <div class="form-group">
-                    <input type="text" class="form-control" id="answer" name="answer" placeholder="Enter answer" />
-                    </div>                  
-                    <button>ANSWER</button>
-                    </form>
-                    <br> -->
-
-                    <!-- <fieldset>
-                        <legend>{{theMatch}}</legend>
-                    <form method="POST">
-                    <input type="radio" id="option" name="option" value="{{ans[0]}}" checked>
-                    <label for="option1">{{ans[0]}}</label><br>
-                    <input type="radio" id="option" name="option" value="{{ans[1]}}">
-                    <label for="option2">{{ans[1]}}</label><br>
-                    <input type="radio" id="option" name="option" value="{{ans[2]}}">
-                    <label for="option3">{{ans[2]}}</label><br>
-                    <input type="radio" id="option" name="option" value="{{ans[3]}}">
-                    <label for="option4">{{ans[3]}}</label><br>
-                    <button >ANSWER</button>
-                    </form> -->
-
-                    <!-- <br><button onclick="showNewQuestion()">PASS</button>
-
-<script>
-
-function showNewQuestion() {
-    window.location.reload();
-} 
-
-</script> -->
-
+{% if finish == "False" : %}
 <p id="questionArea"></p>
-
+{% else : %}
+<p> YOUR QUESTIONS ARE DONE</p>
+{% endif %}
 
 <script>
-
-// var op1,op2,op3,op4;
-// op1=Math.floor(Math.random() * 4);
-// op2=Math.floor(Math.random() * 4);
-// while(op2==op1){
-//     op2=Math.floor(Math.random() * 4);
-// }
-// op3=Math.floor(Math.random() * 4);
-// while(op3==op1 || op3==op2){
-//     op3=Math.floor(Math.random() * 4);
-// }
-// op4=Math.floor(Math.random() * 4);
-// while(op4==op1 || op4==op2 || op4==op3){
-//     op4=Math.floor(Math.random() * 4);
-// }
-
-
-
 var htmlBlock=  '<fieldset>'+
                 '<legend>{{theMatch}}</legend>'+
                 ' <form method="POST">'+
@@ -81,8 +33,6 @@ var htmlBlock=  '<fieldset>'+
                     '</form>';
 
 document.getElementById("questionArea").innerHTML = htmlBlock;
-
-// Math.floor(Math.random() * 4);
 </script>
 
 {% endblock %}
