@@ -21,8 +21,10 @@ first_name=""
 last_name=""
 global ques
 global ans
-# global falseAns
 global answers
+ques=""
+ans=""
+answers=[]
 
 def randomAns(arr):
 
