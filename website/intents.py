@@ -1,3 +1,4 @@
+from glob import glob
 import random
 # from flask import flash
 from flask import request
@@ -13,15 +14,15 @@ intents = Blueprint('intents',__name__)
 
 global first_name
 global last_name
-first_name=""
-last_name=""
 global ques
-global ans
 global answers
 global dataArr
+global score
+score=0
+first_name=""
+last_name=""
 dataArr=[]
 ques=""
-ans=""
 answers=[]
 
 def randomAns(arr):
@@ -61,13 +62,13 @@ def getLastName():
 
 @intents.route('/home')
 def home():
+    global score
     name=getFirstName()
     surname=getLastName()    
     userId=findUserId(name,surname)
     categoryId=findMatchedCategoryId(userId)
     score=getScore(userId,categoryId)
 
-    print(str(name)+ ": " +str(categoryId) + " : " + str(score))
     return render_template("home.html",name=name,surname=surname,score=score)
 
 @intents.route('/askedQuestion')
@@ -95,7 +96,12 @@ def updateScore():
     global correct_ans
     global answers
     global dataArr
-    global isAnsweredCorrectly
+    global score
+    name=getFirstName()
+    surname=getLastName()    
+    userId=findUserId(name,surname)
+    categoryId=findMatchedCategoryId(userId)
+
     if request.method == 'POST':
         userAnswer = request.form.get('option')
         correctAnswer=correct_ans
@@ -106,6 +112,9 @@ def updateScore():
         else:
             csv(dataArr,"0")
             print('FALSE')
+        
+    score=getScore(userId,categoryId)
+
 
     dataArr=printMatch()
     if(dataArr != False):
@@ -163,5 +172,6 @@ def login():
 
 @intents.route('/statistics')
 def statistics():
-    return render_template("statistics.html")  
+    global score
+    return render_template("statistics.html",score=score)  
 

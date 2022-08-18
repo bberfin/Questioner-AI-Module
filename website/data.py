@@ -76,19 +76,35 @@ def takeMatches_category():
 
 def getScore(user_id,category_id):
     counter=0
+    categoryName=""
+    scoreArr=[]
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
     askedId=asked_data.get("user_id")
     categoryId=asked_data.get("category_id")
     isCorrect=asked_data.get("is_correct")
     quesLen = askedId.__len__()
 
+    categoryNames=takeCategories()
+    categoryIds=takeCategoryId()
+    categoryLen=categoryIds.__len__()
+
     for x in range(quesLen):
         if((str(user_id)==str(askedId[x])) and (str(category_id)==str(categoryId[x]))):
-            print("biiiirr")
             if(str(isCorrect[x])=="1"):
-                print("ikiii")
-                counter+=1               
-    return counter
+                counter+=1 
+    
+    tempArr=[counter]
+
+    for y in range(categoryLen):
+        if(str(category_id)==str(categoryIds[y])):
+            categoryName=categoryNames[y]
+
+    tempArr2=[categoryName]
+    tempArr=tempArr+tempArr2
+    
+    scoreArr=scoreArr+tempArr
+
+    return scoreArr
 
 
 # def findUserId(firstname,lastname):
