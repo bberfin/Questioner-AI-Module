@@ -1,3 +1,4 @@
+from glob import escape
 import random
 from website import data, intents
 from website.writeToCsv import writeToCsv
@@ -27,6 +28,16 @@ def findMatchedCategoryId(user_id):
         if(user_id == matchedUserId[x]):
             category_id = matchedCategoryId[x]
     
+    if(category_id==-1):    #category atanmamışsa train category sine ekle
+        categories=data.takeCategories()
+        categoriesIds=data.takeCategoryId()
+        categoryLen=categoriesIds.__len__()
+        for y in range(categoryLen):
+            if(str(categories[y]) == "train"):
+                trainCategoryId=categoriesIds[y]
+                data.changeCategory(user_id,trainCategoryId)
+                category_id=trainCategoryId
+
     return category_id
 
 def findQuestion(category_id):

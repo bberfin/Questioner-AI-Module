@@ -1,5 +1,7 @@
 import pandas as pd
 
+from website.writeToCsv import writeMatchToCsv
+
 # user_data = pd.read_csv("csvFiles\\users.csv")  #read_csv : virgülle ayrılmış veri tabloları için
 # category_data = pd.read_csv("csvFiles\\categories.csv") 
 # question_data = pd.read_csv("csvFiles\\questions.csv") 
@@ -106,18 +108,20 @@ def getScore(user_id,category_id):
 
     return scoreArr
 
+def changeCategory(user_id,category_id):
 
-# def findUserId(firstname,lastname):
-#     user_data = pd.read_csv("csvFiles\\users.csv")
-#     user_Fnames = user_data.get("user_first_name")
-#     user_Lnames = user_data.get("user_last_name")    
-#     userLen=user_Fnames.__len__()
+    file_name="csvFiles\\user_category_match.csv"
+    data = pd.read_csv(file_name)  
 
-#     userIds=takeUserId()
-#     for x in range(userLen):
-#         if((str(firstname)==str(user_Fnames[x])) and (str(lastname)==str(user_Lnames[x]))):
-#             return userIds[x]
+    data.drop(data[data['user_id']== user_id].index, inplace=True, axis=0)
+    newData=data
 
+    file=open(file_name,'w')
+    file.truncate()
+    file.close()
+
+    newData.to_csv(file_name,mode='w',index=None)
+    writeMatchToCsv(user_id,category_id)
 
 def isAsked(user_id,question_id):
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")

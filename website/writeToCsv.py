@@ -6,7 +6,6 @@ from website import  intents
 
 
 file_name="csvFiles/askedQuestions.csv"
-# asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
 
 def writeToCsv (user_id,question_id,category_id,is_correct):
 
@@ -14,10 +13,7 @@ def writeToCsv (user_id,question_id,category_id,is_correct):
       csvwriter=csv.writer(writeFile)
       csvwriter.writerow([user_id,question_id,category_id,is_correct])
 
-
-      # if(checkAsked(user_id)==False):
-      #   # print("user is NOT here")
-      #   csvwriter.writerow([user_id,question_id,category_id,is_correct])
-      # else:
-      #   # print("user is here")
-      #   csvwriter.writerow([user_id,question_id,category_id,is_correct])
+def writeMatchToCsv(user_id,category_id):
+  with open("csvFiles\\user_category_match.csv",'a', encoding='UTF8', newline='') as wFile:
+      csvwriter=csv.writer(wFile)
+      csvwriter.writerow([user_id,category_id]) 
