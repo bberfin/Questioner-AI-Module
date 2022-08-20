@@ -85,20 +85,6 @@ def printQuestion(quesIdArr):
     else:
         return False
 
-
-    op1=random.randint(0,3)
-    op2=random.randint(0,3)
-    while(op2==op1):
-        op2=random.randint(0,3)
-
-    op3=random.randint(0,3)
-    while(op3==op1 | op3==op2):
-        op3=random.randint(0,3)
-
-    op4=random.randint(0,3)
-    while(op4==op1 | op4==op2 | op4==op3):
-        op4=random.randint(0,3)
-
     for x in range(quesLen):
             if(theQuestion==question[x]):  
                 theAnswer=answer[x]
@@ -124,6 +110,7 @@ def printMatch():
 def csv(dataArr,is_correct):
 
     theQuestionId=0
+    subCategoryId=-1
 
     question = data.takeQuestions()
     quesId=data.takeQuestionsId()
@@ -134,9 +121,12 @@ def csv(dataArr,is_correct):
     data1 = findUserId(first_name,last_name)
     data2 = findMatchedCategoryId(data1)
 
+    
+
     if(dataArr!= False):
         for x in range(quesLen):
             if(dataArr[0]== question[x]):  
                 theQuestionId= quesId[x]
+                subCategoryId=data.take_sub_category(theQuestionId)
 
-        writeToCsv(data1,theQuestionId,data2,is_correct) 
+        writeToCsv(data1,theQuestionId,data2,is_correct,subCategoryId) 

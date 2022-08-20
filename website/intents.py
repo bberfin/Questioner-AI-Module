@@ -56,10 +56,6 @@ def getLastName():
     global last_name
     return last_name
 
-# def checkAnswer():
-#     global isAnsweredCorrectly
-#     return isAnsweredCorrectly   
-
 @intents.route('/home')
 def home():
     global score

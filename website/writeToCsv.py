@@ -7,11 +7,11 @@ from website import  intents
 
 file_name="csvFiles/askedQuestions.csv"
 
-def writeToCsv (user_id,question_id,category_id,is_correct):
+def writeToCsv (user_id,question_id,category_id,is_correct,sub_category_id):
 
   with open(file_name,'a', encoding='UTF8', newline='') as writeFile:
       csvwriter=csv.writer(writeFile)
-      csvwriter.writerow([user_id,question_id,category_id,is_correct])
+      csvwriter.writerow([user_id,question_id,category_id,is_correct,sub_category_id])
 
 def writeMatchToCsv(user_id,category_id):
   with open("csvFiles\\user_category_match.csv",'a', encoding='UTF8', newline='') as wFile:

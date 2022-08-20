@@ -1,3 +1,4 @@
+import math
 import pandas as pd
 
 from website.writeToCsv import writeMatchToCsv
@@ -76,13 +77,31 @@ def takeMatches_category():
     match_category = match_data.get("category_id")
     return match_category
 
+def take_sub_category(ques_id):
+    ques_data = pd.read_csv("csvFiles\\questions.csv")
+    ques_idS = takeQuestionsId()
+    sub_ctgry = ques_data.get("sub_category_id")   
+    quesLen=ques_data.__len__()
+    sub_ctgry_id=-1
+
+    for x in range(quesLen):
+        if(str(ques_id)==str(ques_idS[x])):
+            sub_ctgry_id=sub_ctgry[x]
+
+    if math.isnan(sub_ctgry_id):
+        return ""
+    else:
+        return int(sub_ctgry_id)
+
 def getScore(user_id,category_id):
     counter=0
+    ques_counter=0
     categoryName=""
     scoreArr=[]
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
     askedId=asked_data.get("user_id")
     categoryId=asked_data.get("category_id")
+    subCategoryId=asked_data.get("sub_category_id")
     isCorrect=asked_data.get("is_correct")
     quesLen = askedId.__len__()
 
@@ -92,6 +111,7 @@ def getScore(user_id,category_id):
 
     for x in range(quesLen):
         if((str(user_id)==str(askedId[x])) and (str(category_id)==str(categoryId[x]))):
+            ques_counter+=1
             if(str(isCorrect[x])=="1"):
                 counter+=1 
     
@@ -103,6 +123,9 @@ def getScore(user_id,category_id):
 
     tempArr2=[categoryName]
     tempArr=tempArr+tempArr2
+
+    tempArr3=[ques_counter]
+    tempArr=tempArr+tempArr3
     
     scoreArr=scoreArr+tempArr
 
@@ -126,14 +149,13 @@ def changeCategory(user_id,category_id):
 def isAsked(user_id,question_id):
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
     askedId=asked_data.get("user_id")
-    askedIdLen = askedId.__len__()
     askedQuesId=asked_data.get("question_id")
+    askedIdLen = askedQuesId.__len__()
     flag=False
     for x in range(askedIdLen):
-        if(user_id==askedId[x]):
-            if(str(question_id)==str(askedQuesId[x])):
-                flag=True
-                break
+        if((user_id)==askedId[x]) and (question_id==askedQuesId[x]):
+            print("soruldu")
+            flag=True
 
     return  flag
 

@@ -1,4 +1,4 @@
-question_id,category_id,question,question_answer,option2,option3,option4
+question_id,category_id,question,question_answer,option2,option3,option4,sub_category_id
 1,1,"Olimpiyatlar kaç yılda bir yapılıyor?","4","3","5","6"
 2,2,"Yüksek ateş nedeniyle oluşan havaleyle ilgili yazılanlardan hangisi yanlıştır?", "Genellikle 6 yaşından büyük çocuklarda görülür","Herhangi bir ateşli hastalık sonucu oluşabilir","Vücut sıcaklığının 38⁰C’nin üstüne çıkmasıyla oluşur.","İlk yardım yaparken hasta öncelikle ıslak havluyla sarılır."
 3,2,"Bebeklerde nabız kontrolü nereden yapılır?","Kolun üst kısmından","Kasıktan","Şah damarından","Ayak topuğundan"
@@ -12,16 +12,51 @@ question_id,category_id,question,question_answer,option2,option3,option4
 11,2,"Solunum yolu tam tıkanmalarında ne yapılır?","Heimlich manevrası yapılır.","Baş aşağı çevrilir.","Sırt üstü yatırılır.","Su içirilir."
 12,1,"Futbol oyununda değişik davranışlardan dolayı verilen serbest vuruşun bir diğer adı nedir?","Frikik","Taç","Penaltı","Diskalifiye"
 13,2,"Aşağıdakilerden hangisi bayılmanın nedeni değildir?","Tansiyon yükselmesi","Kan şekerinin düşmesi","Korku aşırı heyecan","Şiddetli enfeksiyonlar"
-14,5,"Olimpiyatlar kaç yılda bir yapılıyor?","4","3","5","6"
-15,5,"Yüksek ateş nedeniyle oluşan havaleyle ilgili yazılanlardan hangisi yanlıştır?", "Genellikle 6 yaşından büyük çocuklarda görülür","Herhangi bir ateşli hastalık sonucu oluşabilir","Vücut sıcaklığının 38⁰C’nin üstüne çıkmasıyla oluşur.","İlk yardım yaparken hasta öncelikle ıslak havluyla sarılır."
-16,5,"Bebeklerde nabız kontrolü nereden yapılır?","Kolun üst kısmından","Kasıktan","Şah damarından","Ayak topuğundan"
-17,5,"Mozart, Beethoven gibi bestecilerin yorumlarıyla zirveye ulaşan; sonat biçimindeki orkestra eserlerine ne isim verilir?","Senfoni","Opera","Filarmoni","Oda"
-18,5,"Hababam Sınıfı kimin eseridir?","Rıfat Ilgaz","Halit Ziya Uşaklıgil","Vedat Türkali","Ahmed Günbay Yıldız"
-19,5,"İlk antik olimpiyat oyunları nerede gerçekleşti?","Yunanistan","Fransa","İtalya","İsveç"
-20,5,"Sözlerinin çoğunluğu veya tamamının şarkıyla söylenen müzikli tiyatro gösterisine ne ad verilir?","Opera","Operet","Vodvil","Bale"
-21,5,"Klasik Türk müzik eserlerinin sözlerine ne ad verilir?","Güfte","Beste","Şarkı","Nefes"
-22,5,"İnce Memed adlı eseri kim yazmıştır?","Yaşar Kemal","Kemal Tahir","Sabahattin Ali","Ömer Seyfettin"
-23,5,"Oscar ödülü alan ilk kadın yönetmen kimdir?","Kathryn Bigelow","Bilge Olgaç","Alice Guy-Blache","Sofia Coppola"
-24,5,"Solunum yolu tam tıkanmalarında ne yapılır?","Heimlich manevrası yapılır.","Baş aşağı çevrilir.","Sırt üstü yatırılır.","Su içirilir."
-25,5,"Futbol oyununda değişik davranışlardan dolayı verilen serbest vuruşun bir diğer adı nedir?","Frikik","Taç","Penaltı","Diskalifiye"
-26,5,"Aşağıdakilerden hangisi bayılmanın nedeni değildir?","Tansiyon yükselmesi","Kan şekerinin düşmesi","Korku aşırı heyecan","Şiddetli enfeksiyonlar"
+14,1,"FIFA’ya göre futbolun doğduğu ülke hangisidir?","Çin","İngiltere","Brezilya","Fransa"
+15,3,"Demir Adam filminin yapımcısına göre, Demir Adam karakterinin yaratılması için kimden ilham alınmıştır?","Elon Musk","Bill Gates","Steve Jobs","Mark Zuckerberg"
+16,1,"NBA tarihinin en skorer oyuncusu kimdir(2022)?","Kerim Abdül Cabbar","Karl Malone","Michael Jordan","Wilt Chamberlain"
+17,2,"Yerleşim yerleri içinde otomobiller için hız limiti saatte kaç kilometredir?","50","60","70","65"
+18,3,"Hollywood tabelası 1923 yılında hangi sektörün tanıtımı için dikilmiştir?","Emlâk","Turizm","Sinema","Sanayi"
+19,4,"Müzik ezgileri yazılırken sesleri gösteren işaretlere ne ad verilir ?","Nota","Akor","Hece","Beste"
+20,4,"Hangisi müzikteki erkek seslerinden biri değildir?","Soprano","Tenor","Bariton","Bas"
+21,5,"Olimpiyat bayrağı üzerinde bulunan iç içe geçmiş 5 renkli halka hangilerini temsil eder?","Kıtaları","Kurucuları","Madalyaları","Spor dallarını",1
+22,5,"UEFA Kupasını alan ilk Türk takımı hangisidir?","Galatasaray","Fenerbahçe","Beşiktaş","Trabzonspor",1
+23,5,"Nobel ödülleri hangi ülkede verilmektedir?","İsveç","Almanya","İngiltere","İspanya",1
+24,5,"NBA'de oynayan ve All Star’a seçilen Türk basketbolcu kimdir ?","Mehmet Okur","Cedi Osman","Alperen Şengün","Furkan Korkmaz",1
+25,5,"FIFA Dünya kupasını hangi ülke almıştır ?","İtalya","Yunanistan","Rusya","ispanya",1
+26,5,"Bowling oyununda bir oyuncunun alabileceği en yüksek puan kaçtır?","300","200","350","250",1
+27,5,"Voleybol takımında aynı takımda olmalarına rağmen farklı renkte forma giyen oyuncuya ne denir?","Libero","Pasör","Smaçör","Defansçı",1
+28,5,"Basketbol takımında oyuncuların forma numarası hangi sayıyla başlar?","4","1","5","0",1
+29,5,"Bir basketbol maçında bir oyuncu kaç faul alırsa oyun dışında kalır?","5","3","4","2",1
+30,5,"Futbol müsabakalarında sahada toplam kaç oyuncu vardır?","22","24","11","12",1
+31,5,"Aspirinin Hammaddesi Nedir?","Söğüt","Köknar","Kavak","Meşe",2
+32,5,"Aşağıdakilerden Hangisi Dünya Sağlık Örgütünün Kısaltılmış İsmidir?","Who","Uhw","Unıcef","Nato",2
+33,5,"Hangi kan grubu herkesten kan alabilir?","AB","0","A","B",2
+34,5,"Hangi kan grubu herkese kan verir?","0","AB","A","B",2
+35,5,"İnsanın vücudunda kaç tane kemik vardır","206","15","500","1000den fazla",2
+36,5,"Kalbimiz normal olarak dakikada kaç kez atar?","70-80","150-200","200-300","50-60",2
+37,5,"Hangisi ilkyardımın temel uygulamalarından değildir?","Kayıt tutma","Koruma","Bildirme","Kurtarma",2
+38,5,"Aşağıdakilerden hangisi yaşam bulgularından değildir?","Sindirim ve boşaltım","Bilinç","Solunum-dolaşım","Vücut ısısı-kan basıncı",2
+39,5,"İlkyardımda vücut ısısı nereden alınır?","Koltuk altından","Alından","Ağızdan","Anüsten",2
+40,5,"Aşağıdakilerden hangisi yılan ısırmalarında yapılmaz?","Isırılan bölge kesilerek emilir","Soğuk uygulanır","Isırılan bölge kalp seviyesinin altında tutulur","Suyla yıkanır",2
+41,5,"Müzik seslerini yazmak için kullanılan notalar kaç tanedir?","7","8","9","12",4
+42,5,"Hangisi müzikteki kadın seslerinden biri değildir?","Tenor","Soprano","Alto","Mezzo-Soprano",4
+43,5,"Perdesiz gitarın mucidi ünlü sanatçının adı nedir?","Erkan Oğur","Paco de Lucia","Joe Satriani","Yavuz Çetin",4
+44,5,"2003 Eurovision şarkı yarışmasında Türkiye'ye birincilik getiren sanatçımız kimdir?","Sertab Erener","Şebnem Paker","Kenan Doğulu","Ajda Pekkan",4
+45,5,"Aşağıdakilerden hangisi bir enstrüman değildir?","Filarmoni","Keman","Flüt","Mandolin",4
+46,5,"Şarkılarda ezgi ve söz uyumuna ne isim verilir?","Prozodi","Eşuyum","Allegro","Scherzo",4
+47,5,"Tarihte bilinen ilk müzik aleti hangisidir?","Flüt","Davul","Keman","Piyano",4
+48,5,"Geniş ton aralığından ötürü 'Enstrümanların Kralı' olarak anılan piyanonun mucidi kimdir?","Bartolomeo Cristofori","Marius","Sigismond Thalberg","Ludwig Van Beethoven",4
+49,5,"Hangisi müziğin 3 ana öğesinden biri değildir?","Melodi","Armoni","Ritim","Nota",4
+50,5,"Aşağıdakilerden hangisi telli bir müzik aletidir?","Cümbüş","Ksilofon","Timpani","Aarefon",4
+51,5,"Süt Kardeşler filminde 'Seni hiç sevmedim süt oğlan, babanı da sevmezdim' repliğini söyleyen oyuncu kimdir?","Şener Şen","Kemal Sunal","Halit Akçatepe","Tayfun Akalın",3
+52,5,"Cevdet Bey ve Oğulları Eseri Kime Aittir?","Orhan Pamuk","Yahya Kemal Bayatlı","Atilla İlhan","Samipaşazade",3
+53,5,"Zoraki Kral, Sefiller ve Lanet Takım filmlerinin Oscar ödüllü yönetmeni kimdir?","Tom Hooper","Tim Burton","Christopher Nolan","Martin Scorsese",3
+54,5,"'Sinekli Bakkal' Romanının Yazarı Aşağıdakilerden Hangisidir?","Halide Edip Adıvar","Reşat Nuri Güntekin","Ziya Gökalp","Ömer Seyfettin",3
+55,5,"George Orwell'in "Bin Dokuz Yüz Seksen Dört" romanındaki baş kararakter hangisidir?","Winston Smith","Raistlin Majere","Holden Caufield","Mr. Charrington",3
+56,5,"İlk yerli tiyatro eseri kime aittir?","Şinasi","Musahizade Celal","Namık Kemal","Ahmet Vefik Paşa",3
+57,5,"Halk ozanlarının, şiirlerinin son dörtlüğünde mahlaslarını kullanmasına ne denir?","Tapşırma","Hoşlama","Kargış","Anma",3
+58,5,"Aşağıdakilerden hangisi nobel Ödüllü romancımızdır?","Orhan Pamuk","Zülfü Livaneli","Orhan Kemal","Aziz Nesin",3
+59,5,"Hangi eser Dostoyevski'ye ait değildir?","Savaş ve Barış","Suç ve Ceza","Budala","Ecinniler",3
+60,5,"Eşkiya filminin yönetmeni kimdir?","Yavuz Turgul","Semih Kaplanoğlu","Atıf Yılmaz","Yılmaz Güney",3
+
