@@ -130,3 +130,5 @@ def csv(dataArr,is_correct):
                 subCategoryId=data.take_sub_category(theQuestionId)
 
         writeToCsv(data1,theQuestionId,data2,is_correct,subCategoryId) 
+
+

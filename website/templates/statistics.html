@@ -14,4 +14,12 @@
 <h3>Number of questions answered: {{score[2]}}</h3>
 <h3>Score    : {{score[0]}}</h3>
 
+{% for x in range(subScore_len) %}
+<h4>--------------------------</h4>
+<h6>category: {{subScore[x][0]}}</h6>
+<h6>score   : {{subScore[x][1]}}</h6>
+{% endfor %}
+<h4>--------------------------</h4>
+
+
 {% endblock %}

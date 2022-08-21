@@ -1,4 +1,5 @@
 import math
+from tempfile import tempdir
 import pandas as pd
 
 from website.writeToCsv import writeMatchToCsv
@@ -11,6 +12,9 @@ from website.writeToCsv import writeMatchToCsv
 
 global askedNum
 askedNum=0
+
+global temp
+temp=[]
 
 def takeFirstNames():
     user_data = pd.read_csv("csvFiles\\users.csv")
@@ -96,8 +100,10 @@ def take_sub_category(ques_id):
 def getScore(user_id,category_id):
     counter=0
     ques_counter=0
+    trainCategoryId=-1
     categoryName=""
     scoreArr=[]
+    subCtgryArr=[]
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
     askedId=asked_data.get("user_id")
     categoryId=asked_data.get("category_id")
@@ -109,11 +115,32 @@ def getScore(user_id,category_id):
     categoryIds=takeCategoryId()
     categoryLen=categoryIds.__len__()
 
+    for y in range(categoryLen):
+        if(str(categoryNames[y]) == "train"):
+            trainCategoryId=categoryIds[y]
+
+    # if (str(category_id)==str(trainCategoryId)):
+    #     for y in range(quesLen):
+    #         if((str(user_id)==str(askedId[y])) and (str(category_id)==str(categoryId[y]))):
+    #             newArr=[int(subCategoryId[y])]
+    #             subCtgryArr=subCtgryArr+newArr
+        
+    #     findSubCategoryScore(subCtgryArr,subCtgryArr.__len__())
+
+
+
     for x in range(quesLen):
         if((str(user_id)==str(askedId[x])) and (str(category_id)==str(categoryId[x]))):
             ques_counter+=1
             if(str(isCorrect[x])=="1"):
                 counter+=1 
+            if (str(category_id)==str(trainCategoryId)):
+                newArr=[[int(subCategoryId[x]),str(isCorrect[x])]]
+                subCtgryArr=subCtgryArr+newArr
+                
+    
+    findSubCategoryScore(subCtgryArr,subCtgryArr.__len__())               
+
     
     tempArr=[counter]
 
@@ -129,7 +156,59 @@ def getScore(user_id,category_id):
     
     scoreArr=scoreArr+tempArr
 
+
     return scoreArr
+
+def findSubCategoryScore(subCtgryArr,arrLen):
+    tempArr=[]
+    counter=0
+    tmp=1
+    # for x in range(arrLen):
+    #     print(str(subCtgryArr[x][0])+":"+str(subCtgryArr[x][1]))
+
+    for x in range(arrLen):
+        for y in range(arrLen):
+            if(str(subCtgryArr[x][0]) == str(subCtgryArr[y][0])):
+                counter+=1
+                # print(str(subCtgryArr[x][0])+"-"+str(subCtgryArr[y][0]))
+        # print(str(subCtgryArr[x][0])+":")
+        # print(str(findCategoryName(subCtgryArr[x][0]))+str(counter))
+
+        newArr=[[findCategoryName(subCtgryArr[x][0]),str(counter)]]
+        tempArr=tempArr+newArr
+        # print(findCategoryName(subCtgryArr[x][0])+": "+str(tmp))
+        counter=0
+
+    global temp
+    xArr=[]
+    temp=xArr
+    categories=takeCategories()
+    categoryIDs=takeCategoryId()
+    lenn=categoryIDs.__len__()
+    lennArr=tempArr.__len__()
+    for z in range(lenn):
+        for y in range(lennArr):
+            if(str(categories[z]) == str(tempArr[y][0])):
+                # print(str(tempArr[y][0])+": "+str(tempArr[y][1]))
+                newTemp=[[str(tempArr[y][0]),str(tempArr[y][1])]]
+                temp=temp+newTemp
+                break 
+        
+    # for a in range(temp.__len__()):
+    #     print(temp[a][0]+": "+temp[a][1])
+
+
+def findCategoryName(category_id):
+    theName=""
+    categoryNames=takeCategories()
+    categoryIDs=takeCategoryId()
+    ctgryLen=categoryIDs.__len__()
+
+    for x in range(ctgryLen):
+        if(str(category_id)==str(categoryIDs[x])):
+            theName=categoryNames[x]
+    
+    return theName
 
 def changeCategory(user_id,category_id):
 
@@ -154,7 +233,7 @@ def isAsked(user_id,question_id):
     flag=False
     for x in range(askedIdLen):
         if((user_id)==askedId[x]) and (question_id==askedQuesId[x]):
-            print("soruldu")
+            # print("soruldu")
             flag=True
 
     return  flag
@@ -190,3 +269,6 @@ def checkAsked(user_id):
             break
         
     return  flag
+
+def takeScore_subCategories():
+    return temp

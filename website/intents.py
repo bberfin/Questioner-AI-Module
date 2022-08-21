@@ -6,7 +6,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import redirect, url_for
 from website.checkMatch import csv, findMatchedCategoryId, findUserId, printMatch
-from website.data import getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeQuestionsAnswer
+from website.data import getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeQuestionsAnswer, takeScore_subCategories
 from website.login import User
 
 
@@ -169,5 +169,7 @@ def login():
 @intents.route('/statistics')
 def statistics():
     global score
-    return render_template("statistics.html",score=score)  
+    sub_score=takeScore_subCategories()
+    sub_score_len=sub_score.__len__()
+    return render_template("statistics.html",score=score,subScore=sub_score,subScore_len=sub_score_len)  
 
