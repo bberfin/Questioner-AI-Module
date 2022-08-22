@@ -265,14 +265,13 @@ def findNewCategory(arr,arrLen):
             askLen+=1
 
     # print("new category : "+str(theMax)+"---"+str(arr[flag][0]))
-    print("train id :" +str(trainID))
-    print("train ques count :" +str(trainQuescount))
-    print("asked len : "+str(askLen))  
 
-    # if(trainQuescount == arrLen):
-        # print("new category : "+str(theMax)+"---"+str(arr[flag][0]))
+    if(str(trainQuescount) == str(askLen)):
+        changeCategory(userId,findCategory_id(arr[flag][0]))
+        # print(findCategory_id(arr[flag][0]))
         # print("train id :" +str(trainID))
         # print("train ques count :" +str(trainQuescount))
+        # print("asked len : "+str(askLen)) 
         
 
 def findCategoryName(category_id):
@@ -286,6 +285,18 @@ def findCategoryName(category_id):
             theName=categoryNames[x]
     
     return theName
+
+def findCategory_id(category_name):
+    theId=""
+    categoryNames=takeCategories()
+    categoryIDs=takeCategoryId()
+    ctgryLen=categoryIDs.__len__()
+
+    for x in range(ctgryLen):
+        if(str(category_name)==str(categoryNames[x])):
+            theId=categoryIDs[x]
+    
+    return theId
 
 def changeCategory(user_id,category_id):
 
@@ -323,13 +334,19 @@ def findQuesId(question):
         if(str(question)==str(ques[x])):
             return quesIds[x]
 
-def findAskedQuesNum(user_id):
+def findAskedQuesNum(user_id): # without counting train questions
     global askedNum
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
     askedId=asked_data.get("user_id")
+    askedCategory=asked_data.get("category_id")
     askedIdLen = askedId.__len__()
+
+    train_id=findCategory_id("train")
+    print("train id: "+ str(train_id))
+    
+
     for x in range(askedIdLen):
-        if(user_id==askedId[x]):
+        if((user_id==askedId[x]) and (str(askedCategory[x])!=str(train_id))):
             askedNum=askedNum+1
     num = askedNum
     askedNum=0

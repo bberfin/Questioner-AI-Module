@@ -1,4 +1,3 @@
-from glob import glob
 import random
 # from flask import flash
 from flask import request
@@ -6,7 +5,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import redirect, url_for
 from website.checkMatch import csv, findMatchedCategoryId, findUserId, printMatch
-from website.data import getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeQuestionsAnswer, takeScore_subCategories
+from website.data import getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeScore_subCategories
 from website.login import User
 
 

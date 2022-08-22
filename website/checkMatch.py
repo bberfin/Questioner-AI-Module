@@ -1,4 +1,3 @@
-from glob import escape
 import random
 from website import data, intents
 from website.writeToCsv import writeToCsv
@@ -75,6 +74,7 @@ def printQuestion(quesIdArr):
                 quesArr=quesArr+newArr
     
     number=data.findAskedQuesNum(id_user)  
+    print("number"+str(number))
     if( number < quesIdLen):                #tüm sorular sorulmuş mu kontrol et
         index = random.randint(0,quesArr.__len__()-1)
         while((data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),data.findQuesId(quesArr[index]))==True)):
