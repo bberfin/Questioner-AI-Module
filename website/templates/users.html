@@ -4,13 +4,38 @@
 
 <style>
     body {
-     background-color: rgb(57, 130, 107);
+        background-color: rgb(121, 175, 158);
     }
+    th,tr.x,td.y{
+
+        border-style: outset;
+        background: rgb(144, 217, 235);
+    }
+    tr.e,td.z{
+
+        border-style: outset;
+        background:bisque;
+        text-align: center;
+    }
+
  </style>
 
 <h1>Usernames</h1>
 
-{% for x in range(user_names_len) %}
-<h6>{{x+1}}- {{user_names[x]}} {{user_last_names[x]}}</h6>
-{% endfor %}
+<table>
+    <tr class="x">
+        <th></th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+    </tr>
+    {% for x in range(user_names_len) %}
+    <tr class="e">
+        <td class="y">{{x+1}}</td>
+        <td class="z">{{user_names[x]}}</td>
+        <td class="z">{{user_last_names[x]}}</td>
+    </tr>
+    {% endfor %}
+
+</table>
 {% endblock %}
+

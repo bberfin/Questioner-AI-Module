@@ -4,7 +4,19 @@
 
 <style>
     body {
-     background-color: rgb(57, 130, 107);
+     background-color: rgb(121, 175, 158);
+    }
+
+    ul.subdata {
+        border-style: outset;
+        border-radius: 12px;
+        background: bisque;
+    }
+
+    ul.data {
+        border-style: outset;
+        border-radius: 12px;
+        background: rgb(144, 217, 235);
     }
  </style>
  
@@ -15,10 +27,20 @@
 <h3>Score    : {{score[0]}}</h3>
 
 {% for x in range(subScore_len) %}
-<h6>-------------------------- ({{subScore[x][3]}})</h6> 
-<h6>(Train)category: {{subScore[x][0]}}</h6>
-<h6>Number of questions answered: {{subScore[x][1]}}</h6>
-<h6>Score : {{subScore[x][2]}}</h6>
+<ul class="data">
+    <li>(Train) category : {{subScore[x][0]}} </li>
+    <li>percentage       : {{subScore[x][3]}}</li>
+    <li>
+        <ul class="subdata">
+            <li>Number of questions answered: {{subScore[x][1]}}</li>
+            <li>Score : {{subScore[x][2]}}</li>
+        </ul>
+    </li>
+</ul>
+
+
+
+
 {% endfor %}
 
 

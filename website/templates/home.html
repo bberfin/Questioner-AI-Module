@@ -4,15 +4,43 @@
 
 <style>
     body {
-     background-color: rgb(57, 130, 107);
+     background-color: rgb(121, 175, 158);
+    }
+
+    h1 {
+
+        font-size: 45px;
+        font-family: "Lucida Console";
+        
+        text-align: center;
+        text-transform: uppercase;
+        color: bisque;
+        text-shadow: 7px 5px 5px red;
+    }
+
+    p.double{
+
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;
+
+        background-color: bisque;
+
+        border-style:double;
+        border-width: 6px;
+        border-left: 6px solid red;
+        border-radius: 12px;
+        padding: 5px;
     }
  </style>
 
-<h1>The Questioner</h1>
+<h1>The Questioner</h1><br>
 
-<h5>Name: {{name}}</h5>
-<h5>Surname: {{surname}}</h5>
-<h5>Score: {{score[0]}}</h5>
+<p class="double">
+    Name: {{name}} <br>
+    Surname: {{surname}} <br>
+    Score: {{score[0]}} 
+</p>
+
 
 <br>
 <form action="/askedQuestion">
