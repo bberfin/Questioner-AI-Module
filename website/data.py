@@ -193,7 +193,8 @@ def findSubCategoryScore(subCtgryArr,arrLen):
         for y in range(lennArr):
             if(str(categories[z]) == str(tempArr[y][0])):
                 # print(str(tempArr[y][0])+": "+str(tempArr[y][1]))
-                newTemp=[[str(tempArr[y][0]),str(tempArr[y][1]),str(tempArr[y][2])]]
+                percentage= (int(tempArr[y][2])/int(tempArr[y][1])).__format__(".2")
+                newTemp=[[str(tempArr[y][0]),str(tempArr[y][1]),str(tempArr[y][2]),percentage]]
                 temp=temp+newTemp
                 break 
         
