@@ -162,7 +162,7 @@ def getScore(user_id,category_id):
 def findSubCategoryScore(subCtgryArr,arrLen):
     tempArr=[]
     counter=0
-    tmp=1
+    sub_counter=0
     # for x in range(arrLen):
     #     print(str(subCtgryArr[x][0])+":"+str(subCtgryArr[x][1]))
 
@@ -170,12 +170,15 @@ def findSubCategoryScore(subCtgryArr,arrLen):
         for y in range(arrLen):
             if(str(subCtgryArr[x][0]) == str(subCtgryArr[y][0])):
                 counter+=1
+                if(str(subCtgryArr[y][1])=="1"):
+                    sub_counter+=1
                 # print(str(subCtgryArr[x][0])+"-"+str(subCtgryArr[y][0]))
         # print(str(subCtgryArr[x][0])+":")
         # print(str(findCategoryName(subCtgryArr[x][0]))+str(counter))
 
-        newArr=[[findCategoryName(subCtgryArr[x][0]),str(counter)]]
+        newArr=[[findCategoryName(subCtgryArr[x][0]),str(counter),str(sub_counter)]]
         tempArr=tempArr+newArr
+        sub_counter=0
         # print(findCategoryName(subCtgryArr[x][0])+": "+str(tmp))
         counter=0
 
@@ -190,7 +193,7 @@ def findSubCategoryScore(subCtgryArr,arrLen):
         for y in range(lennArr):
             if(str(categories[z]) == str(tempArr[y][0])):
                 # print(str(tempArr[y][0])+": "+str(tempArr[y][1]))
-                newTemp=[[str(tempArr[y][0]),str(tempArr[y][1])]]
+                newTemp=[[str(tempArr[y][0]),str(tempArr[y][1]),str(tempArr[y][2])]]
                 temp=temp+newTemp
                 break 
         
@@ -271,4 +274,5 @@ def checkAsked(user_id):
     return  flag
 
 def takeScore_subCategories():
+    global temp
     return temp

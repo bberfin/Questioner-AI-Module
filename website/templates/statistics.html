@@ -16,10 +16,10 @@
 
 {% for x in range(subScore_len) %}
 <h4>--------------------------</h4>
-<h6>category: {{subScore[x][0]}}</h6>
-<h6>score   : {{subScore[x][1]}}</h6>
+<h6>(Train)category: {{subScore[x][0]}}</h6>
+<h6>Number of questions answered: {{subScore[x][1]}}</h6>
+<h6>Score : {{subScore[x][2]}}</h6>
 {% endfor %}
-<h4>--------------------------</h4>
 
 
 {% endblock %}
