@@ -7,21 +7,58 @@
 
 <style>
     body {
-     background-color: rgb(255, 255, 190);
+     background-color: bisque
     }
 
-    p{     border: 15px solid green;}
+    p.done{     
+        border: 15px solid green;
+    }
+
+    p.ques{     
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;
+
+        /* background-color: bisque; */
+
+        border-bottom: groove;
+        border-width: 7px;
+        border-radius: 12px;
+    }
+
+    p.option{
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;       
+    }
+
+    .ansButton{
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold ;
+        background-color: rgb(204, 201, 201);
+        border: groove;
+        border-color: rgb(60, 102, 83);
+        border-radius: 12px;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;       
+    }    
+    .ansButton:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
  </style>
 
 {% if finish == "False" : %}
-<p id="questionArea"></p>
+<p class="ques" id="questionArea"></p>
+<p class="option" id="optionArea"></p>
+
 {% else : %}
-<p> YOUR QUESTIONS ARE DONE</p>
+<p class="done"> YOUR QUESTIONS ARE DONE</p>
 {% endif %}
 
 <script>
-var htmlBlock=  '<fieldset>'+
-                '<legend>{{theMatch}}</legend>'+
+var htmlBlock_ques=  '<fieldset>'+
+                '<legend>{{theMatch}}</legend>'
+
+var htmlBlock_option=
                 ' <form method="POST">'+
                 '<input type="radio" id="option" name="option" value="{{ans[0]}}" checked>'+
                     '<label for="option1">{{ans[0]}}</label><br>'+
@@ -30,11 +67,13 @@ var htmlBlock=  '<fieldset>'+
                     '<input type="radio" id="option" name="option" value="{{ans[2]}}">'+
                     '<label for="option3">{{ans[2]}}</label><br>'+
                     '<input type="radio" id="option" name="option" value="{{ans[3]}}">'+
-                    '<label for="option4">{{ans[3]}}</label><br>'+
-                    '<button >ANSWER</button>'+
+                    '<label for="option4">{{ans[3]}}</label><br><br>'+
+                    '<button class="ansButton" style="color:rgb(60, 102, 83);;">ANSWER</button>'+
                     '</form>';
 
-document.getElementById("questionArea").innerHTML = htmlBlock;
+document.getElementById("questionArea").innerHTML = htmlBlock_ques;
+document.getElementById("optionArea").innerHTML = htmlBlock_option;
+
 </script>
 
 {% endblock %}

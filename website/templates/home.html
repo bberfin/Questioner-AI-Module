@@ -11,7 +11,7 @@
 
         font-size: 45px;
         font-family: "Lucida Console";
-        
+
         text-align: center;
         text-transform: uppercase;
         color: bisque;
@@ -31,6 +31,25 @@
         border-radius: 12px;
         padding: 5px;
     }
+
+    .askButton{
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;
+        background-color: bisque;
+        border: double;
+        border-color: red;
+        border-radius: 12px;
+        padding: 10px;
+        text-align: center;
+        font-size: 16px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    .askButton:hover {
+        background-color: red;
+    }
+    
+
  </style>
 
 <h1>The Questioner</h1><br>
@@ -43,8 +62,8 @@
 
 
 <br>
-<form action="/askedQuestion">
-    <input type="submit" value="ASK ME QUESTIONS ">
+<form  action="/askedQuestion">
+    <input class="askButton" type="submit" value="ASK ME">
     </form>
 
 

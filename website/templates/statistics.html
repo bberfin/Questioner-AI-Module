@@ -7,6 +7,17 @@
      background-color: rgb(121, 175, 158);
     }
 
+    ul.basic{
+        background: beige;
+        border-style:double;
+        border-width: 6px;
+        border-left: 6px solid red;
+        border-radius: 12px;
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;
+        font-size: 18px;
+    }
+
     ul.subdata {
         border-style: outset;
         border-radius: 12px;
@@ -18,22 +29,34 @@
         border-radius: 12px;
         background: rgb(144, 217, 235);
     }
+
+    .title{
+        color: darkblue;
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;
+        font-size: 14px;
+    }
+
+
  </style>
  
 <h1>Statistics</h1>
 
-<h3>Category : {{score[1]}}</h3>
-<h3>Number of questions answered: {{score[2]}}</h3>
-<h3>Score    : {{score[0]}}</h3>
+<ul class="basic">
+    <li>Category : <b style="color: red; ">{{score[1]}}</b></li>
+    <li>Number of questions answered: <b style="color: red; ">{{score[2]}}</b></li>
+    <li>Score    : <b style="color: red; ">{{score[0]}}</b></li>
+</ul>
+
 
 {% for x in range(subScore_len) %}
 <ul class="data">
-    <li>(Train) category : {{subScore[x][0]}} </li>
-    <li>percentage       : {{subScore[x][3]}}</li>
-    <li>
+    <li class="title">(Train) category : <b style="color: green; ">{{subScore[x][0]}}</b> </li>
+    <li class="title">percentage       : <b style="color: green; ">{{subScore[x][3]}}</b></li>
+    <li class="title">
         <ul class="subdata">
-            <li>Number of questions answered: {{subScore[x][1]}}</li>
-            <li>Score : {{subScore[x][2]}}</li>
+            <li class="title">Number of questions answered: <b style="color: green; ">{{subScore[x][1]}}</b></li>
+            <li class="title">Score : <b style="color: green; ">{{subScore[x][2]}}</b></li>
         </ul>
     </li>
 </ul>
