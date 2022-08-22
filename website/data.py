@@ -1,6 +1,7 @@
 import math
-from tempfile import tempdir
 import pandas as pd
+from website import checkMatch
+from website import intents 
 
 from website.writeToCsv import writeMatchToCsv
 
@@ -53,6 +54,16 @@ def takeQuestionsId():
     question_id = question_data.get("question_id")
     return question_id
 
+def takeAskedQuestionsUserId():
+    question_data = pd.read_csv("csvFiles\\askedQuestions.csv") 
+    user_id = question_data.get("user_id")
+    return user_id
+
+def takeAskedQuestionsCategoryId():
+    question_data = pd.read_csv("csvFiles\\askedQuestions.csv") 
+    category_id = question_data.get("category_id")
+    return category_id
+
 def takeQuestionsAnswer():
     question_data = pd.read_csv("csvFiles\\questions.csv") 
     question_answer = question_data.get("question_answer")
@@ -70,6 +81,7 @@ def takeCategoryQuesId():
     question_data = pd.read_csv("csvFiles\\questions.csv") 
     ctgry_id = question_data.get("category_id")
     return ctgry_id
+
 
 def takeMatches_user():
     match_data = pd.read_csv("csvFiles\\user_category_match.csv")
@@ -138,7 +150,7 @@ def getScore(user_id,category_id):
                 newArr=[[int(subCategoryId[x]),str(isCorrect[x])]]
                 subCtgryArr=subCtgryArr+newArr
                 
-    
+   
     findSubCategoryScore(subCtgryArr,subCtgryArr.__len__())               
 
     
@@ -185,6 +197,7 @@ def findSubCategoryScore(subCtgryArr,arrLen):
     global temp
     xArr=[]
     temp=xArr
+    percentage=0
     categories=takeCategories()
     categoryIDs=takeCategoryId()
     lenn=categoryIDs.__len__()
@@ -196,11 +209,71 @@ def findSubCategoryScore(subCtgryArr,arrLen):
                 percentage= (int(tempArr[y][2])/int(tempArr[y][1])).__format__(".2")
                 newTemp=[[str(tempArr[y][0]),str(tempArr[y][1]),str(tempArr[y][2]),percentage]]
                 temp=temp+newTemp
+                # findNewCategory(temp,temp.__len__())        
                 break 
-        
+
+    name=intents.getFirstName()
+    surname=intents.getLastName()    
+    userId=checkMatch.findUserId(name,surname)  
+    categoryId=checkMatch.findMatchedCategoryId(userId) 
+
+    for y in range(lenn):
+        if(str(categories[y]) == "train"):
+            trainCategoryId=categoryIDs[y]
+
+    if(str(categoryId)==str(trainCategoryId)):           
+        findNewCategory(temp,temp.__len__())        
     # for a in range(temp.__len__()):
     #     print(temp[a][0]+": "+temp[a][1])
 
+def findNewCategory(arr,arrLen):
+
+    trainQuescount=0
+    trainID=-1
+
+    categoryNames=takeCategories()
+    categoryIDs=takeCategoryId()
+    categoryLen=categoryNames.__len__()
+    for x in range(categoryLen):
+        if("train"==str(categoryNames[x])):
+            trainID=categoryIDs[x]
+    
+    questions=takeCategoryQuesId()
+    questionsLen=questions.__len__()
+    for x in range(questionsLen):
+        if(str(trainID)==str(questions[x])):
+            trainQuescount+=1
+    
+    flag=0
+    # theMax=arr[0][3]
+    theMax=0
+    for x in range(arrLen):
+        if(str(arr[x][3])>str(theMax)):
+            theMax=arr[x][3]
+            flag=x
+
+
+    askLen=0
+    name=intents.getFirstName()
+    surname=intents.getLastName()    
+    userId=checkMatch.findUserId(name,surname)
+    askedQuestionsCtgry=takeAskedQuestionsCategoryId()
+    askedQuestionsUser=takeAskedQuestionsUserId()
+    askedQuestionsLen=askedQuestionsUser.__len__()
+    for x in range(askedQuestionsLen):
+        if(str(askedQuestionsCtgry[x])==str(trainID) and (str(userId) == str(askedQuestionsUser[x]))):
+            askLen+=1
+
+    # print("new category : "+str(theMax)+"---"+str(arr[flag][0]))
+    print("train id :" +str(trainID))
+    print("train ques count :" +str(trainQuescount))
+    print("asked len : "+str(askLen))  
+
+    # if(trainQuescount == arrLen):
+        # print("new category : "+str(theMax)+"---"+str(arr[flag][0]))
+        # print("train id :" +str(trainID))
+        # print("train ques count :" +str(trainQuescount))
+        
 
 def findCategoryName(category_id):
     theName=""
