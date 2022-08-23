@@ -1,3 +1,4 @@
+from flask import flash
 import math
 import pandas as pd
 from website import checkMatch
@@ -246,10 +247,10 @@ def findNewCategory(arr,arrLen):
     
     flag=0
     # theMax=arr[0][3]
-    theMax=0
+    theMin=1
     for x in range(arrLen):
-        if(str(arr[x][3])>str(theMax)):
-            theMax=arr[x][3]
+        if(str(arr[x][3])<str(theMin)):
+            theMin=arr[x][3]
             flag=x
 
 
@@ -264,15 +265,9 @@ def findNewCategory(arr,arrLen):
         if(str(askedQuestionsCtgry[x])==str(trainID) and (str(userId) == str(askedQuestionsUser[x]))):
             askLen+=1
 
-    # print("new category : "+str(theMax)+"---"+str(arr[flag][0]))
-
     if(str(trainQuescount) == str(askLen)):
-        changeCategory(userId,findCategory_id(arr[flag][0]))
-        # print(findCategory_id(arr[flag][0]))
-        # print("train id :" +str(trainID))
-        # print("train ques count :" +str(trainQuescount))
-        # print("asked len : "+str(askLen)) 
-        
+        changeCategory(userId,findCategory_id(arr[flag][0])) 
+        flash("Your category has changed! : "+str(arr[flag][0]))
 
 def findCategoryName(category_id):
     theName=""

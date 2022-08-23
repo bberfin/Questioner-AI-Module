@@ -17,6 +17,8 @@ global ques
 global answers
 global dataArr
 global score
+global correct_ans
+correct_ans=""
 score=0
 first_name=""
 last_name=""
@@ -78,10 +80,10 @@ def askQuestion():
         correct_ans=dataArr[1]
         answers=[dataArr[1],dataArr[2],dataArr[3],dataArr[4]]
         answers=randomAns(answers)
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False")  
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False",cAns=correct_ans)  
 
     else:
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True")
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True",cAns=correct_ans)
 
 
 @intents.route('/askedQuestion', methods=['GET', 'POST'])
@@ -117,10 +119,10 @@ def updateScore():
         correct_ans=dataArr[1]
         answers=[dataArr[1],dataArr[2],dataArr[3],dataArr[4]]
         answers=randomAns(answers)
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False")
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False",cAns=correct_ans)
     
     else:
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True")
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True",cAns=correct_ans)
 
 @intents.route('/username')
 def username():
@@ -172,3 +174,6 @@ def statistics():
     sub_score_len=sub_score.__len__()
     return render_template("statistics.html",score=score,subScore=sub_score,subScore_len=sub_score_len)  
 
+@intents.route('/signup')
+def signup():
+     return render_template("signup.html")

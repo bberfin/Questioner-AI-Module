@@ -6,6 +6,43 @@
    body {
     background-color: lightblue;
    }
+
+   .form-group{
+    font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+    font-weight: bold;
+    background-color: rgb(61, 7, 82);
+    color: rgb(151, 193, 229);
+    border-style:double;
+    border-width: 6px;
+    border-left: 6px solid  ;
+    border-radius: 12px;
+    padding: 7px;
+    margin-top: 30px;
+   }
+
+   .btnLogin{
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold ;
+        background-color: bisque;
+        border-style: double;
+        border-color:rgb(61, 7, 82);
+        border-style:double;
+        border-width: 6px;
+        border-left: 6px solid  ;
+        border-radius: 12px;
+        padding: 7px;
+        text-align: center;
+        font-size: 16px;       
+    }    
+    .btnLogin:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    img{
+      max-width: 100%;
+      height: auto;     
+    }
+
 </style>
 
 
@@ -33,7 +70,10 @@
         />
       </div>
     <br />
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btnLogin" style="color:  rgb(61, 7, 82);">Login</button>
   </form>
+
+  <!-- <div class="logo" id="logoArea"></div> -->
+
 
 {% endblock %}

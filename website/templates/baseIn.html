@@ -35,13 +35,15 @@
           <a class="nav-item nav-link" id="usernames" href="/username">Usernames</a>
           <a class="nav-item nav-link" id="categories" href="/category">Categories</a>
           <a class="nav-item nav-link" id="questions" href="/question">Questions</a>
-          <a class="nav-item nav-link" id="questions" href="/match">Matches</a>
-          <a class="nav-item nav-link" id="Statistics" href="/statistics">Statistics</a>  
+          <a class="nav-item nav-link" id="matches" href="/match">Matches</a>
+          <a class="nav-item nav-link" id="Statistics" href="/statistics">Statistics</a> 
+          <a class="nav-item nav-link" id="logout" href="/">Logout</a>  
+ 
         </div>
       </div>
     </nav>
 
-    <!-- {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
     {% for message in messages %}
@@ -50,7 +52,7 @@
     </ul>
   {% endif %}
 {% endwith %}
-{% block body %}{% endblock %} -->
+{% block body %}{% endblock %}
 
       <div class="container">{% block content %} {% endblock %}</div>
       <script

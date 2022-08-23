@@ -4,16 +4,44 @@
 
 <style>
    body {
-    background-color: rgb(57, 130, 107);
+    background-color:  rgb(121, 175, 158);
    }
+
+   .basicTitle{
+        color: black;
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;
+        text-shadow: 7px 5px 5px bisque;
+    }
+
+    th,tr.x,td.a{
+      border-style: outset;
+      background: rgb(144, 217, 235);
+}
+   tr.y,td.b{
+
+      border-style: outset;
+      background:bisque;
+      text-align: center;
+}
+
 </style>
 
-<h1>Categories</h1>
+<h1 class="basicTitle">Categories</h1>
 
+<table>
+   <tr class="x">
+       <th></th>
+       <th>Category Name</th>
+   </tr>
 
 {% for x in range(category_names_len) %}
-   <h6>{{x+1}}-{{category_names[x]}}</h6>
-
+<tr class="y">
+   <td class="a">{{x+1}}</td>
+   <td class="b">{{category_names[x]}}</td>
+</tr>
 {% endfor %}
+</table>
+
 
 {% endblock %}
