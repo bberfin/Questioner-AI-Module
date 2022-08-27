@@ -1,0 +1,84 @@
+{% extends "baseIn.html" %} {% block title %}General Statistics{% endblock %}
+
+{% block content %}
+
+<style>
+  body{
+
+     background-color: rgb(244, 225, 201);
+
+  }
+
+  h1 {
+
+font-size: 45px;
+font-family: "Lucida Console";
+
+text-align: center;
+text-transform: uppercase;
+color: bisque;
+text-shadow: 7px 5px 5px red;
+}
+</style>
+
+<h1>General Statistics</h1>
+
+
+<script>
+  const categoryArr=[]
+  const values=[]
+</script>
+
+{% for x in range(DATALEN) %}
+<script>
+  var data= '{{DATA[x][0]}}';
+  var data2= '{{DATA[x][1]}}';
+
+  categoryArr.push(data)
+  values.push(data2)
+</script>
+
+{% endfor %}
+
+
+
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+
+<canvas id="statisticsChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+
+// var yValues = [55, 49, 44, 24, 10,1];
+var barColors = [
+  "#b91d47",
+  "#00aba9",
+  "#2b5797",
+  "#e8c3b9",
+  "#1e7145"
+];
+
+new Chart("statisticsChart", {
+  type: "doughnut",
+  data: {
+    labels: categoryArr,
+    datasets: [{
+      backgroundColor: barColors,
+      data: values
+    }]
+  },
+  options: {
+    title: {
+      display: true,
+      text: "Rate of Asking Questions by Category"
+    }
+  }
+});
+</script>
+
+
+
+
+
+{% endblock %}
