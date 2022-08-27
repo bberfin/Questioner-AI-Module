@@ -1,5 +1,4 @@
-from website.data import takeAskedQuestionsCategoryId, takeCategories, takeCategoryId
-
+from website.data import takeAskedQuestionsCategoryId, takeAskedQuestionsResult, takeCategories, takeCategoryId, takeMatches_category
 
 def names():
 
@@ -7,34 +6,49 @@ def names():
     categoryLen=categoryNames.__len__()
 
     categoryIds=takeCategoryId()
-    trainCategoryId=-1
 
-    askedQuestionsIds=takeAskedQuestionsCategoryId()
-    askedLen=askedQuestionsIds.__len__()
-
-
-    #find the category id of the train category
-    for y in range(categoryLen):
-        if(str(categoryNames[y]) == "train"):
-            trainCategoryId=categoryIds[y]
+    userCategories=takeMatches_category()
+    userCategoryLen=userCategories.__len__()
 
 
-
-    # the names of categories ( except "train category")
-    # and the number of asked questions for each category
     statisticsArr=[]
     for y in range(categoryLen):
         counter=0
-        if(str(categoryNames[y]) != "train"):
- 
-            for x in range(askedLen):
-                if(categoryIds[y]==askedQuestionsIds[x]):
-                    counter+=1
+        for x in range(userCategoryLen):
+            if(categoryIds[y]==userCategories[x]):
+                counter+=1
 
-            statisticsArr=statisticsArr+[[str(categoryNames[y]),counter]]
-
+        statisticsArr=statisticsArr+[[str(categoryNames[y]),counter]]
 
     return statisticsArr
+
+def categoryStatistics():
+
+    categoryNames=takeCategories()
+    categoryIds=takeCategoryId()
+    categoryLen=categoryIds.__len__()
+
+    askedQuestionsIds=takeAskedQuestionsCategoryId()
+    asked_data = takeAskedQuestionsResult()
+    askedLen=askedQuestionsIds.__len__()
+
+
+    falseCounter=0
+    trueCounter=0
+    ctgryArr=[]
+    for y in range(categoryLen):
+        falseCounter=0
+        trueCounter=0
+        for x in range(askedLen):
+            if(categoryIds[y]==askedQuestionsIds[x]):
+                if(str(asked_data[x])=="1"):
+                    trueCounter+=1
+                else:
+                    falseCounter+=1
+
+        
+        ctgryArr=ctgryArr+[[str(categoryNames[y]),str(falseCounter),str(trueCounter)]]
+    return ctgryArr
 
 
 

@@ -6,7 +6,7 @@ from flask import render_template
 from flask import redirect, url_for
 from website.checkMatch import csv, findMatchedCategoryId, findUserId, printMatch
 from website.data import getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeScore_subCategories
-from website.generalStatistics import names
+from website.generalStatistics import categoryStatistics, names
 from website.login import User
 
 
@@ -181,6 +181,8 @@ def signup():
 
 @intents.route('/generalStatistics')
 def generalStatistics():
-    arr=names() # the names of categories ( except "train category")
-    arrLen=arr.__len__()     # the number of categories ( except "train category")
-    return render_template("generalStatistics.html",DATA=arr,DATALEN=arrLen)
+    arr=names() 
+    arrLen=arr.__len__()   
+    ctgryArr=categoryStatistics()
+    ctgryLen=ctgryArr.__len__()
+    return render_template("generalStatistics.html",DATA=arr,DATALEN=arrLen,CTGRY=ctgryArr,CTGRYLEN=ctgryLen)

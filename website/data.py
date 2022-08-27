@@ -65,6 +65,11 @@ def takeAskedQuestionsCategoryId():
     category_id = question_data.get("category_id")
     return category_id
 
+def takeAskedQuestionsResult():
+    question_data = pd.read_csv("csvFiles\\askedQuestions.csv") 
+    is_correct = question_data.get("is_correct")
+    return is_correct
+
 def takeQuestionsAnswer():
     question_data = pd.read_csv("csvFiles\\questions.csv") 
     question_answer = question_data.get("question_answer")

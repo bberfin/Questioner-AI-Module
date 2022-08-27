@@ -25,7 +25,7 @@ text-shadow: 7px 5px 5px red;
 
 
 <script>
-  const categoryArr=[]
+  const statisticsArr=[]
   const values=[]
 </script>
 
@@ -34,13 +34,11 @@ text-shadow: 7px 5px 5px red;
   var data= '{{DATA[x][0]}}';
   var data2= '{{DATA[x][1]}}';
 
-  categoryArr.push(data)
+  statisticsArr.push(data)
   values.push(data2)
 </script>
 
 {% endfor %}
-
-
 
 <script
 src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
@@ -49,8 +47,6 @@ src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 <canvas id="statisticsChart" style="width:100%;max-width:600px"></canvas>
 
 <script>
-
-// var yValues = [55, 49, 44, 24, 10,1];
 var barColors = [
   "#b91d47",
   "#00aba9",
@@ -62,7 +58,7 @@ var barColors = [
 new Chart("statisticsChart", {
   type: "doughnut",
   data: {
-    labels: categoryArr,
+    labels: statisticsArr,
     datasets: [{
       backgroundColor: barColors,
       data: values
@@ -71,7 +67,7 @@ new Chart("statisticsChart", {
   options: {
     title: {
       display: true,
-      text: "Rate of Asking Questions by Category"
+      text: "Rate of Users by Category"
     }
   }
 });
@@ -79,6 +75,100 @@ new Chart("statisticsChart", {
 
 
 
+
+<style>
+  .btn-group .button {
+    background-color: #db98a0;
+    border: 2px solid white;
+    color: bisque;
+    padding: 5px 20px;
+    text-align: center;
+    font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+    font-weight: bold;
+    font-size: 16px;
+    float: left;
+  }
+  
+  .btn-group .button:not(:last-child) {
+    border-right: none; /* Prevent double borders */
+  }
+
+
+  .btn-group .button:hover {
+    background-color: red;
+  }
+  </style>
+
+
+
+
+<script>
+  const categoryArr=[]
+  const categoryTrueValues=[]
+  const categoryFalseValues=[]
+</script>
+
+{% for x in range(CTGRYLEN) %}
+<script>
+  var data= '{{CTGRY[x][0]}}';
+  var data2= '{{CTGRY[x][1]}}';
+  var data3= '{{CTGRY[x][2]}}';
+  categoryArr.push(data)
+  categoryFalseValues.push(data2)
+  categoryTrueValues.push(data3)
+</script>
+{% endfor %}
+
+
+
+
+  <br><br><br>
+  <div class="btn-group">
+  {% for x in range(CTGRYLEN) %}
+  <button class="button" id="button" onclick="showStatistics(this)" value="{{x}}">{{CTGRY[x][0]}}</button> 
+  {% endfor %} 
+  </div> 
+
+<br><br>
+<canvas id="CategoryStatisticsChart" style="width:100%;max-width:600px"></canvas>
+
+
+<script>
+
+
+
+function showStatistics(objButton){
+
+  
+  var trueData=categoryTrueValues[objButton.value];
+  var falseData=categoryFalseValues[objButton.value];  
+  var barColors = [
+          "#b91d47",
+          "#00aba9",
+          "#2b5797",
+          "#e8c3b9",
+          "#1e7145"
+        ];
+
+  new Chart("CategoryStatisticsChart", {
+    type: "doughnut",
+    data: {
+      labels: ["TRUE","FALSE"],
+      datasets: [{
+        backgroundColor: barColors,
+        data: [trueData,falseData]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: "*********"
+      }
+    }
+  });
+      }
+
+</script>
 
 
 {% endblock %}
