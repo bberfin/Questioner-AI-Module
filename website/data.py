@@ -2,7 +2,8 @@ from flask import flash
 import math
 import pandas as pd
 from website import checkMatch
-from website import intents 
+from website import intents
+from website.changeCategoryToMostPreferred import findUserAskedCategories
 
 from website.writeToCsv import writeMatchToCsv
 
@@ -116,6 +117,7 @@ def take_sub_category(ques_id):
         return int(sub_ctgry_id)
 
 def getScore(user_id,category_id):
+
     counter=0
     ques_counter=0
     trainCategoryId=-1
@@ -137,13 +139,8 @@ def getScore(user_id,category_id):
         if(str(categoryNames[y]) == "train"):
             trainCategoryId=categoryIds[y]
 
-    # if (str(category_id)==str(trainCategoryId)):
-    #     for y in range(quesLen):
-    #         if((str(user_id)==str(askedId[y])) and (str(category_id)==str(categoryId[y]))):
-    #             newArr=[int(subCategoryId[y])]
-    #             subCtgryArr=subCtgryArr+newArr
-        
-    #     findSubCategoryScore(subCtgryArr,subCtgryArr.__len__())
+    if(str(category_id)!=str(trainCategoryId)):
+        findUserAskedCategories(user_id)
 
 
 
@@ -151,10 +148,13 @@ def getScore(user_id,category_id):
         if((str(user_id)==str(askedId[x])) and (str(category_id)==str(categoryId[x]))):
             ques_counter+=1
             if(str(isCorrect[x])=="1"):
-                counter+=1 
+                counter+=1
             if (str(category_id)==str(trainCategoryId)):
                 newArr=[[int(subCategoryId[x]),str(isCorrect[x])]]
                 subCtgryArr=subCtgryArr+newArr
+
+
+
                 
    
     findSubCategoryScore(subCtgryArr,subCtgryArr.__len__())               
@@ -334,7 +334,7 @@ def findQuesId(question):
         if(str(question)==str(ques[x])):
             return quesIds[x]
 
-def findAskedQuesNum(user_id): # without counting train questions
+def findAskedQuesNum(user_id,category_id): # without counting train questions
     global askedNum
     asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
     askedId=asked_data.get("user_id")
@@ -342,12 +342,13 @@ def findAskedQuesNum(user_id): # without counting train questions
     askedIdLen = askedId.__len__()
 
     train_id=findCategory_id("train")
-    print("train id: "+ str(train_id))
+    # print("train id: "+ str(train_id))
     
 
     for x in range(askedIdLen):
         if((user_id==askedId[x]) and (str(askedCategory[x])!=str(train_id))):
-            askedNum=askedNum+1
+            if(str(category_id)==str(askedCategory[x])):
+                askedNum=askedNum+1
     num = askedNum
     askedNum=0
     return num

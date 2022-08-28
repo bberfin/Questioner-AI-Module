@@ -120,38 +120,36 @@ new Chart("statisticsChart", {
 {% endfor %}
 
 
-
+<div id="CategoryChartDiv" >
 
   <br><br><br>
   <div class="btn-group">
   {% for x in range(CTGRYLEN) %}
-  <button class="button" id="button" onclick="showStatistics(this)" value="{{x}}">{{CTGRY[x][0]}}</button> 
+  <button class="button" id="button" onclick="showStatistics(this.value)" value="{{x}}">{{CTGRY[x][0]}}</button> 
   {% endfor %} 
   </div> 
 
 <br><br>
-<canvas id="CategoryStatisticsChart" style="width:100%;max-width:600px"></canvas>
 
+<canvas id="CategoryStatisticsChart" style="width:100%;max-width:600px"></canvas>
+</div>
 
 <script>
-
-
-
 function showStatistics(objButton){
 
-  
-  var trueData=categoryTrueValues[objButton.value];
-  var falseData=categoryFalseValues[objButton.value];  
+
+  trueData=categoryTrueValues[objButton];
+  falseData=categoryFalseValues[objButton];  
+
+
   var barColors = [
-          "#b91d47",
           "#00aba9",
-          "#2b5797",
-          "#e8c3b9",
-          "#1e7145"
+          "#b91d47",
+
         ];
 
   new Chart("CategoryStatisticsChart", {
-    type: "doughnut",
+    type: "pie",
     data: {
       labels: ["TRUE","FALSE"],
       datasets: [{
@@ -162,11 +160,15 @@ function showStatistics(objButton){
     options: {
       title: {
         display: true,
-        text: "*********"
+        text: "Response Rates by Category"
       }
     }
   });
+
       }
+ 
+      
+
 
 </script>
 

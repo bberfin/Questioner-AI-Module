@@ -1,13 +1,15 @@
-from website.data import takeAskedQuestionsCategoryId, takeAskedQuestionsResult, takeCategories, takeCategoryId, takeMatches_category
 
-def names():
+from website import data
 
-    categoryNames=takeCategories()
+
+def names():  # number of users for each category
+
+    categoryNames=data.takeCategories()
     categoryLen=categoryNames.__len__()
 
-    categoryIds=takeCategoryId()
+    categoryIds=data.takeCategoryId()
 
-    userCategories=takeMatches_category()
+    userCategories=data.takeMatches_category()
     userCategoryLen=userCategories.__len__()
 
 
@@ -24,12 +26,12 @@ def names():
 
 def categoryStatistics():
 
-    categoryNames=takeCategories()
-    categoryIds=takeCategoryId()
+    categoryNames=data.takeCategories()
+    categoryIds=data.takeCategoryId()
     categoryLen=categoryIds.__len__()
 
-    askedQuestionsIds=takeAskedQuestionsCategoryId()
-    asked_data = takeAskedQuestionsResult()
+    askedQuestionsIds=data.takeAskedQuestionsCategoryId()
+    asked_data = data.takeAskedQuestionsResult()
     askedLen=askedQuestionsIds.__len__()
 
 

@@ -1,5 +1,6 @@
 import random
 from website import data, intents
+from website.changeCategoryToMostPreferred import findUserAskedCategories
 from website.writeToCsv import writeToCsv
 
 def findUserId(firstName,lastName):
@@ -36,6 +37,8 @@ def findMatchedCategoryId(user_id):
                 trainCategoryId=categoriesIds[y]
                 data.changeCategory(user_id,trainCategoryId)
                 category_id=trainCategoryId
+    
+
 
     return category_id
 
@@ -72,18 +75,29 @@ def printQuestion(quesIdArr):
             if((quesIdArr[x] == quesId[y]) and (data.isAsked(id_user,quesId[y])==False)):  #sorulmamış soru bul
                 newArr=[question[y]]
                 quesArr=quesArr+newArr
+
+# find current user category id
+    user_ids=data.takeMatches_user()
+    user_ctgrys=data.takeMatches_category()
+    usersLen=user_ids.__len__()
+    user_category_id=""
+    for x in range(usersLen):
+        if(str(id_user)==str(user_ids[x])):
+            user_category_id=str(user_ctgrys[x])
+
+
     
-    number=data.findAskedQuesNum(id_user)  
-    print("number"+str(number))
+    number=data.findAskedQuesNum(id_user,user_category_id)  
+    # print("number"+str(number))
     if( number < quesIdLen):                #tüm sorular sorulmuş mu kontrol et
         index = random.randint(0,quesArr.__len__()-1)
         while((data.isAsked(findUserId(intents.getFirstName(),intents.getLastName()),data.findQuesId(quesArr[index]))==True)):
             index = random.randint(0,quesArr.__len__()-1)
         
         theQuestion= quesArr[index]
-
+    
     else:
-        return False
+       return False
 
     for x in range(quesLen):
             if(theQuestion==question[x]):  
