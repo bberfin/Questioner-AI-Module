@@ -9,6 +9,7 @@
 
   }
 
+
   h1 {
 
 font-size: 45px;
@@ -130,13 +131,14 @@ new Chart("statisticsChart", {
   </div> 
 
 <br><br>
-
 <canvas id="CategoryStatisticsChart" style="width:100%;max-width:600px"></canvas>
 </div>
 
-<script>
-function showStatistics(objButton){
+<div id="chartarea" style="width:100%;max-width:600px"></div>
 
+<script>
+  
+function showStatistics(objButton){
 
   trueData=categoryTrueValues[objButton];
   falseData=categoryFalseValues[objButton];  
@@ -147,8 +149,19 @@ function showStatistics(objButton){
           "#b91d47",
 
         ];
+      
+    document.getElementById("CategoryStatisticsChart").remove();
+    var canvas = document.createElement("canvas");
+    canvas.id="CategoryStatisticsChart";
+    // canvas.style.width =5;
+    // canvas.style.height = 5;
+    var body = document.getElementById("chartarea");
+    body.appendChild(canvas);
 
-  new Chart("CategoryStatisticsChart", {
+    
+
+
+    new Chart("CategoryStatisticsChart", {
     type: "pie",
     data: {
       labels: ["TRUE","FALSE"],
