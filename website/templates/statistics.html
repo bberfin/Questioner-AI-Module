@@ -7,7 +7,7 @@
      background-color: rgb(121, 175, 158);
     }
 
-    ul.basic{
+    ul.basic,h4{
         background: beige;
         border-style:double;
         border-width: 6px;
@@ -49,11 +49,15 @@
  
 <h1 class="basicTitle">Statistics</h1>
 
+<h4 style="padding: 5px;">  Total Score    : <b style="color: red; ">{{score[4]}}/{{score[3]}}</b></h4>
+
+
 <ul class="basic">
-    <li>Category : <b style="color: red; ">{{score[1]}}</b></li>
+    <li>Current Category : <b style="color: red; ">{{score[1]}}</b></li>
     <li>Number of questions answered: <b style="color: red; ">{{score[2]}}</b></li>
     <li>Score    : <b style="color: red; ">{{score[0]}}</b></li>
 </ul>
+
 
 
 {% for x in range(subScore_len) %}

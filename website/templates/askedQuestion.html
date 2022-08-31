@@ -56,12 +56,14 @@
         border: 15px ridge red;
    
     }
+</style>
 
 
-
- </style>
 
 {% if finish == "False" : %}
+
+<canvas id="statisticsChart" style="width:100%;max-width:275px"></canvas>
+<br>
 <p class="ques" id="questionArea"></p>
 <p class="option" id="optionArea"></p>
 <p class="correctAnswer" id="correctAnswer"></p>
@@ -100,6 +102,41 @@ function showAnswer(){
 }
 
 </script>
+
+<script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<script>
+
+var true_prcntg='{{answers_percentage[0]}}';
+var false_prcntg='{{answers_percentage[1]}}';
+
+    var barColors = [
+      "#b91d47",
+      "#00aba9",
+      "#2b5797",
+      "#e8c3b9",
+      "#1e7145"
+    ];
+    
+    new Chart("statisticsChart", {
+      type: "doughnut",
+      data: {
+        labels: ['TRUE','FALSE'],
+        datasets: [{
+          backgroundColor: barColors,
+          data:  [true_prcntg,false_prcntg],
+        }]
+      },
+      options: {
+        title: {
+          display: true,
+          text: "Users' Answers to This Question"
+        }
+      }
+    });
+    </script>
+
 
 {% endblock %}
 

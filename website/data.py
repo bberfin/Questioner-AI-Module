@@ -120,6 +120,8 @@ def getScore(user_id,category_id):
 
     counter=0
     ques_counter=0
+    totalScore=0
+    totalques=0
     trainCategoryId=-1
     categoryName=""
     scoreArr=[]
@@ -145,13 +147,18 @@ def getScore(user_id,category_id):
 
 
     for x in range(quesLen):
-        if((str(user_id)==str(askedId[x])) and (str(category_id)==str(categoryId[x]))):
-            ques_counter+=1
-            if(str(isCorrect[x])=="1"):
-                counter+=1
-            if (str(category_id)==str(trainCategoryId)):
-                newArr=[[int(subCategoryId[x]),str(isCorrect[x])]]
-                subCtgryArr=subCtgryArr+newArr
+        if((str(user_id)==str(askedId[x]))):            
+            if(str(category_id)!=str(trainCategoryId)):
+                totalques+=1
+                if(str(isCorrect[x])=="1"):
+                    totalScore+=1
+            if(str(category_id)==str(categoryId[x])):
+                ques_counter+=1
+                if(str(isCorrect[x])=="1"):
+                    counter+=1
+                if (str(category_id)==str(trainCategoryId)):
+                    newArr=[[int(subCategoryId[x]),str(isCorrect[x])]]
+                    subCtgryArr=subCtgryArr+newArr
 
 
 
@@ -171,6 +178,12 @@ def getScore(user_id,category_id):
 
     tempArr3=[ques_counter]
     tempArr=tempArr+tempArr3
+
+    tempArr4=[totalques]
+    tempArr=tempArr+tempArr4  
+
+    tempArr5=[totalScore]
+    tempArr=tempArr+tempArr5
     
     scoreArr=scoreArr+tempArr
 
@@ -364,6 +377,40 @@ def checkAsked(user_id):
             break
         
     return  flag
+
+def checkAsked(user_id):
+    asked_data = pd.read_csv("csvFiles\\askedQuestions.csv")
+    askedId=asked_data.get("user_id")
+    askedIdLen = askedId.__len__()
+    flag=False 
+    for x in range(askedIdLen):
+        if(user_id==askedId[x]):
+            flag=True
+            break
+        
+    return  flag
+
+def findAnswersPercentages(ques_id):
+    asked_question_data = pd.read_csv("csvFiles\\askedQuestions.csv") 
+    the_ques = asked_question_data.get("question_id")
+    is_correct = asked_question_data.get("is_correct")
+    asked_len=asked_question_data.__len__()
+
+    true_counter=0
+    false_counter=0
+
+    for x in range(asked_len):
+        if(str(the_ques[x])==str(ques_id)):
+            if(str(is_correct[x])== "1"):
+                true_counter+=1
+            else:
+                false_counter+=1
+    tmp=[]
+    tmp=tmp+[true_counter]
+    tmp=tmp+[false_counter]
+    return tmp
+
+
 
 def takeScore_subCategories():
     global temp

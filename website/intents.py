@@ -1,3 +1,4 @@
+from flask import flash
 import random
 # from flask import flash
 from flask import request
@@ -5,7 +6,7 @@ from flask import Blueprint
 from flask import render_template
 from flask import redirect, url_for
 from website.checkMatch import csv, findMatchedCategoryId, findUserId, printMatch
-from website.data import getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeScore_subCategories
+from website.data import findAnswersPercentages, findQuesId, getScore, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeScore_subCategories
 from website.generalStatistics import categoryStatistics, names
 from website.login import User
 
@@ -19,6 +20,8 @@ global answers
 global dataArr
 global score
 global correct_ans
+global ans_prctng
+ans_prctng=0
 correct_ans=""
 score=0
 first_name=""
@@ -75,16 +78,19 @@ def askQuestion():
     global correct_ans
     global answers
     global dataArr
+    global ans_prctng
     dataArr=printMatch()
     if(dataArr != False):
         ques= dataArr[0]
+        ques_id=findQuesId(str(ques))
+        ans_prctng=findAnswersPercentages(str(ques_id))
         correct_ans=dataArr[1]
         answers=[dataArr[1],dataArr[2],dataArr[3],dataArr[4]]
         answers=randomAns(answers)
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False",cAns=correct_ans)  
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False",cAns=correct_ans,answers_percentage=ans_prctng)  
 
     else:
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True",cAns=correct_ans)
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True",cAns=correct_ans,answers_percentage=ans_prctng)
 
 
 @intents.route('/askedQuestion', methods=['GET', 'POST'])
@@ -95,6 +101,7 @@ def updateScore():
     global answers
     global dataArr
     global score
+    global ans_prctng
     name=getFirstName()
     surname=getLastName()    
     userId=findUserId(name,surname)
@@ -117,13 +124,15 @@ def updateScore():
     dataArr=printMatch()
     if(dataArr != False):
         ques= dataArr[0]
+        ques_id=findQuesId(str(ques))
+        ans_prctng=findAnswersPercentages(str(ques_id))
         correct_ans=dataArr[1]
         answers=[dataArr[1],dataArr[2],dataArr[3],dataArr[4]]
         answers=randomAns(answers)
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False",cAns=correct_ans)
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="False",cAns=correct_ans,answers_percentage=ans_prctng)
     
     else:
-        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True",cAns=correct_ans)
+        return render_template("askedQuestion.html",theMatch=ques,ans=answers,finish="True",cAns=correct_ans,answers_percentage=ans_prctng)
 
 @intents.route('/username')
 def username():
@@ -175,10 +184,6 @@ def statistics():
     sub_score_len=sub_score.__len__()
     return render_template("statistics.html",score=score,subScore=sub_score,subScore_len=sub_score_len)  
 
-@intents.route('/signup')
-def signup():
-     return render_template("signup.html")
-
 @intents.route('/generalStatistics')
 def generalStatistics():
     arr=names() 
@@ -186,3 +191,20 @@ def generalStatistics():
     ctgryArr=categoryStatistics()
     ctgryLen=ctgryArr.__len__()
     return render_template("generalStatistics.html",DATA=arr,DATALEN=arrLen,CTGRY=ctgryArr,CTGRYLEN=ctgryLen)
+
+@intents.route('/signup')
+def signup():
+    if request.method == 'POST':
+        first_name = request.form.get('firstName')
+        last_name = request.form.get('lastName')
+        
+        nameF = User.query.filter_by(first_name=first_name).first()
+        nameL = User.query.filter_by(last_name=last_name).first()
+
+        if nameF and nameL:
+            flash('The User already exists.', category='error')
+        else:
+            new_user = User(first_name=first_name,last_name=last_name )
+            return redirect(url_for('views.home'))
+    return render_template("signup.html")
+
