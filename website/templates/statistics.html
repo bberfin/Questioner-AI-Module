@@ -58,7 +58,14 @@
     <li>Score    : <b style="color: red; ">{{score[0]}}</b></li>
 </ul>
 
+{% for x in range(allStatistics_len) %}
+<ul class="data">
+    <li>Category : <b style="color: red; ">{{allStatistics[x][0]}}</b></li>
+    <li>Number of questions answered: <b style="color: red; ">{{allStatistics[x][1]}}</b></li>
+    <li>Score    : <b style="color: red; ">{{allStatistics[x][2]}}</b></li>
+</ul>
 
+{% endfor %}
 
 {% for x in range(subScore_len) %}
 <ul class="data">

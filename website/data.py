@@ -410,6 +410,47 @@ def findAnswersPercentages(ques_id):
     tmp=tmp+[false_counter]
     return tmp
 
+def show_all_statistics(user_id):
+    asked_question_data = pd.read_csv("csvFiles\\askedQuestions.csv") 
+    the_users = asked_question_data.get("user_id")  
+    is_correct = asked_question_data.get("is_correct")
+    asked_len=asked_question_data.__len__()
+
+    user_asked_arr=[]
+
+    category_ids=takeCategoryId()
+    category_len=category_ids.__len__()
+    asked_data=takeAskedQuestionsCategoryId()
+    asked_user_id=takeAskedQuestionsUserId()
+    asked_data_len=asked_data.__len__()
+
+    for x in range(category_len):
+        for y in range(asked_data_len):
+            if(str(asked_user_id[y])==str(user_id)):
+                if(str(asked_data[y])==str(category_ids[x])):
+                    user_asked_arr=user_asked_arr+[str(category_ids[x])]
+                    break
+
+    user_asked_len=user_asked_arr.__len__()   
+
+    ques_counter=0
+    counter=0
+    theArr=[]
+    for y in range(user_asked_len):
+        for x in range(asked_len):
+            if(str(the_users[x])==str(user_id)):
+                if(str(user_asked_arr[y])==str(asked_data[x])):
+                    ques_counter+=1
+                    if(str(is_correct[x])=="1"):
+                        counter+=1
+        newArr=[[str(findCategoryName(user_asked_arr[y])),int(ques_counter),str(counter)]]
+        theArr=theArr+newArr
+        ques_counter=0
+        counter=0
+    
+    return theArr
+        
+
 
 
 def takeScore_subCategories():
