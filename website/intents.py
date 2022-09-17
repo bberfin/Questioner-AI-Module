@@ -113,10 +113,10 @@ def updateScore():
             
         if (userAnswer == correctAnswer):
             csv(dataArr,"1")
-            print('TRUE')
+            # print('TRUE')
         else:
             csv(dataArr,"0")
-            print('FALSE')
+            # print('FALSE')
         
     score=getScore(userId,categoryId)
 
