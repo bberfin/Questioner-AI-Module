@@ -24,23 +24,39 @@
         font-weight: bold;
         text-shadow: 7px 5px 5px bisque;
     }
+
+    h5{
+        background: beige;
+        border-style:double;
+        border-width: 6px;
+        border-left: 6px solid red;
+        border-radius: 12px;
+        font-family: "Lucida Console", "Courier New", monospace,Tahoma, Verdana, sans-serif; /* fallback fonts (font safety) */
+        font-weight: bold;
+        font-size: 18px;
+    }
  </style>
 
 <h1 class="basicTitle">Usernames</h1>
+
+<h5 style="padding: 5px;">highest rated user so far:<b style="color: red;">{{user_names[winnerId-1]}} {{user_last_names[winnerId-1]}}</b></h5>
 
 <table>
     <tr class="x">
         <th></th>
         <th>Firstname</th>
         <th>Lastname</th>
+        <th>Score</th>
     </tr>
     {% for x in range(user_names_len) %}
     <tr class="e">
         <td class="y">{{x+1}}</td>
         <td class="z">{{user_names[x]}}</td>
         <td class="z">{{user_last_names[x]}}</td>
+        <td class="z">{{arr[x]}}</td>
     </tr>
     {% endfor %}
+
 
 </table>
 {% endblock %}

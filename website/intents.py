@@ -7,6 +7,7 @@ from flask import render_template
 from flask import redirect, url_for
 from website.checkMatch import csv, findMatchedCategoryId, findUserId, printMatch
 from website.data import findAnswersPercentages, findQuesId, getScore, show_all_statistics, takeCategories, takeLastNames, takeFirstNames, takeMatches_category, takeMatches_user,  takeQuestions, takeScore_subCategories
+from website.findWinners import findWinners, theWinner
 from website.generalStatistics import categoryStatistics, names
 from website.login import User
 
@@ -136,9 +137,20 @@ def updateScore():
 
 @intents.route('/username')
 def username():
+
+    global score
+    name=getFirstName()
+    surname=getLastName()    
+    userId=findUserId(name,surname)
+    categoryId=findMatchedCategoryId(userId)
+    score=getScore(userId,categoryId)
+
+    arr = findWinners()
+    winnerId = theWinner()
+
     data = takeFirstNames()
     data2 =takeLastNames()
-    return render_template("users.html", user_names=data, user_last_names=data2, user_names_len=data.__len__())
+    return render_template("users.html", user_names=data, user_last_names=data2, user_names_len=data.__len__(),arr=arr,winnerId=winnerId)
 
 @intents.route('/category')
 def category():

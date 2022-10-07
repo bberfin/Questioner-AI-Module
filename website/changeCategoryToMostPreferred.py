@@ -81,10 +81,3 @@ def changeToMostUsedCategory(user_id,category_id):
 
 
 
-
-
-    # print("all questions: "+str(quesCounter))
-    # print("answered questions: "+str(askedCounter))
-
-# data.changeCategory(user_id,category_id)
-
