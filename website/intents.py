@@ -177,8 +177,9 @@ def login():
     if request.method == 'POST':
         first_name = request.form.get('firstName')
         last_name = request.form.get('lastName')
+        password = request.form.get('password')
 
-        isUser = User(first_name, last_name)
+        isUser = User(first_name, last_name, password)
 
         if isUser:
             print('LOGGED SUCCESSFULLY')

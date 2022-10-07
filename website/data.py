@@ -29,11 +29,15 @@ def takeLastNames():
     user_last_names = user_data.get("user_last_name")
     return user_last_names
 
-
 def takeUserId():
     user_data = pd.read_csv("csvFiles\\users.csv")
     user_id = user_data.get("user_id")
     return user_id
+
+def takePasswords():
+    user_data = pd.read_csv("csvFiles\\users.csv")
+    user_password = user_data.get("user_password")
+    return user_password
 
 def takeCategories():
     category_data = pd.read_csv("csvFiles\\categories.csv") 
